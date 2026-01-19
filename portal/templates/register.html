@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registraion page</title>
+</head>
+
+<body>
+
+    <div class="register_as">
+        <button type="button" onclick="toggleForms()">Student</button>
+        <button type="button" onclick="toggleForms()">Company</button>
+    </div>
+    <form id="form1" action="/register_company" method="POST">
+        <h2>Company Registraion Form
+        </h2>
+        <label for="name">Company Name :</label>
+        <input type="text" name="name" id="name" placeholder="Company Name">
+        <br>
+        <label for="name">Hr Contact :</label>
+        <input type="text" name="hr" id="hr" placeholder="Hr Contact">
+        <br>
+        <label for="name">Website :</label>
+        <input type="text" name="website" id="website" placeholder="Website">
+
+    </form>
+
+    <form id="form2" style="display: none;">
+        <h2>Student Registraion form</h2>
+
+        <label for="name">Student Name :</label>
+        <input type="text" name="name" id="name" placeholder="Student Name">
+        <br>
+        <label for="name">Branch :</label>
+        <input type="text" name="branch" id="branch" placeholder="branch">
+        <br>
+        <label for="name">cgpa :</label>
+        <input type="number" name="cgpa" id="cgpa" placeholder="Cgpa...">
+        <br>
+        <label for="name">Resume Path :</label>
+        <input type="number" name="resume_path" id="resume_path" placeholder="Resume...">
+
+
+    </form>
+
+
+
+    <script>
+        function toggleForms() {
+            var form1 = document.getElementById('form1');
+            var form2 = document.getElementById('form2');
+
+            if (form1.style.display === 'none') {
+                // If Form 1 is hidden, show it and hide Form 2
+                form1.style.display = 'block';
+                form2.style.display = 'none';
+            } else {
+                // If Form 1 is shown, hide it and show Form 2
+                form1.style.display = 'none';
+                form2.style.display = 'block';
+            }
+        }
+
+    </script>
+</body>
+
+</html>
