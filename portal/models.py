@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from flask_security import UserMixin
+from flask_login import UserMixin
 from datetime import datetime
 import uuid
 from werkzeug.security import generate_password_hash
@@ -10,20 +10,18 @@ db = SQLAlchemy()
 
 
 
-class User(db.Model):
+class User(db.Model,UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer , primary_key = True)
     email = db.Column(db.String(150) , nullable = False , unique = True)
     username = db.Column(db.String(20) , nullable= False , unique = True)
     password_hash = db.Column(db.String(200),nullable = False , unique = True)
     is_active = db.Column(db.Boolean , default = True)
-    created_at = db.Column(db.DateTime , default = datetime.utcnow)
-    fs_uniquifier = db.Column(db.String(255), unique=True, nullable=False, default=lambda: uuid.uuid4().hex)
     role = db.Column(db.String(30) ,nullable = False) #ADMIN,STUDENT,COMPANY
 
 
 
-class Company(db.Model):
+class Company(db.Model,UserMixin):
     __tablename__ = 'companies'
     id = db.Column(db.Integer , primary_key = True)
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'),nullable = False)
@@ -35,7 +33,7 @@ class Company(db.Model):
 
 
 
-class Student(db.Model):
+class Student(db.Model,UserMixin):
     __tablename__ = 'students'
     id = db.Column(db.Integer , primary_key = True)
     user_id = db.Column(db.Integer,db.ForeignKey('users.id') , nullable = False)
@@ -47,7 +45,7 @@ class Student(db.Model):
 
 
 
-class Drive(db.Model):
+class Drive(db.Model,UserMixin):
     __tablename__ = 'placement_drives'
     id = db.Column(db.Integer , primary_key = True)
     company_id = db.Column(db.Integer,db.ForeignKey('companies.id') , nullable = False)
@@ -58,7 +56,7 @@ class Drive(db.Model):
     status = db.Column(db.String(20), nullable = False,default ='APPROVED') #APPROVED,PENDING,CLOSED
 
 
-class Application(db.Model):
+class Application(db.Model,UserMixin):
     __tablename__ = 'applications'
     id = db.Column(db.Integer , primary_key = True)
     student_id = db.Column(db.Integer,db.ForeignKey('students.id'), nullable = False)
@@ -87,7 +85,6 @@ def seed_admin():
             password_hash=generate_password_hash('admin123'),
             role='ADMIN',
             is_active=True,
-            created_at=datetime.utcnow()
         )
         db.session.add(admin)
         db.session.commit() 

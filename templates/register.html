@@ -16,32 +16,55 @@
     <form id="form1" action="/register_company" method="POST">
         <h2>Company Registraion Form
         </h2>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required>
+
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+        <hr>
         <label for="name">Company Name :</label>
-        <input type="text" name="name" id="name" placeholder="Company Name">
+        <input type="text" name="name" id="name" placeholder="Company Name" required>
         <br>
         <label for="name">Hr Contact :</label>
-        <input type="text" name="hr" id="hr" placeholder="Hr Contact">
+        <input type="text" name="hr" id="hr" placeholder="Hr Contact" required>
         <br>
         <label for="name">Website :</label>
-        <input type="text" name="website" id="website" placeholder="Website">
+        <input type="text" name="website" id="website" placeholder="Website" required>
+
+        <br>
+        <button type="submit">Register</button>
 
     </form>
 
-    <form id="form2" style="display: none;">
+    <form id="form2" action="/student_register" method="POST" style="display: none;">
         <h2>Student Registraion form</h2>
 
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required>
+
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+        <hr>
         <label for="name">Student Name :</label>
-        <input type="text" name="name" id="name" placeholder="Student Name">
+        <input type="text" name="name" id="name" placeholder="Student Name" required>
         <br>
         <label for="name">Branch :</label>
-        <input type="text" name="branch" id="branch" placeholder="branch">
-        <br>
+        <input type="text" name="branch" id="branch" placeholder="branch" required><br>
         <label for="name">cgpa :</label>
-        <input type="number" name="cgpa" id="cgpa" placeholder="Cgpa...">
+        <input type="float" name="cgpa" id="cgpa" placeholder="Cgpa..." required>
         <br>
         <label for="name">Resume Path :</label>
-        <input type="number" name="resume_path" id="resume_path" placeholder="Resume...">
-
+        <input type="text" name="resume_path" id="resume_path" placeholder="Resume..." required>
+        <br>
+        <button type="submit">Register</button>
 
     </form>
 
