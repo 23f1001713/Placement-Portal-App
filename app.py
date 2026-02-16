@@ -2,7 +2,7 @@ from flask import Flask,render_template,request , flash,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash ,check_password_hash
 from portal.models import db , User , Company, Student , Application , Drive,seed_admin
-from flask_login import LoginManager,logout_user,login_required,login_user
+from flask_login import LoginManager,logout_user,login_required,login_user,current_user
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///portal.db'
@@ -12,7 +12,8 @@ db.init_app(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-
+login_manager.login_view='login'
+login_manager.login_message_category = 'info'
 
 
 @login_manager.user_loader
@@ -38,11 +39,12 @@ def home():
 
 
 
-@app.route('/login',methods =['POST','GET'])
+@app.route('/login',methods =['GET','POST'])
 def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
+        print(username , password)
         user = User.query.filter_by(username = username).first()
         if not user:
             flash('Invalid Username')
@@ -52,7 +54,7 @@ def login():
             return render_template('login.html')
         
         if user.is_active != True:
-            flash('his user is not active')
+            flash('This user is not active')
             return render_template('login.html')
         
         if user.role == "COMPANY":
@@ -79,6 +81,7 @@ def login():
             return redirect(url_for('company'))
         if user.role == 'STUDENT':
             return redirect(url_for('student'))
+        
     else:
         return render_template('login.html')
 
@@ -182,7 +185,29 @@ def student_register():
 @app.route("/admin")
 @login_required
 def admin():
-    return render_template('admin.html')
+    total_student = len(Student.query.all())
+    total_applications = len(Application.query.all())
+    total_active_drives = len(Drive.query.all())
+    total_companies = len(Company.query.all())
+    return render_template('admin.html',t_s = total_student,t_c = total_companies, t_a = total_applications,t_a_d = total_active_drives)
+
+
+@app.route('/admin/student')
+def admin_student():
+    return render_template('admin_student.html')
+
+@app.route('/admin/companies')
+def admin_companies():
+    return render_template('admin_companies.html')
+
+@app.route('/admin/drives')
+def admin_drives():
+    return render_template('admin_drives.html')
+
+
+@app.route('/admin/report')
+def admin_reports():
+    return render_template('admin_report.html')
 
 
 @app.route("/student")
