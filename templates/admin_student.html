@@ -1,59 +1,177 @@
 {% extends "admin_base.html" %}
 {% block title %}Admin Student Page{% endblock %}
-{% block content %}
-<div class="main">
-    <div class="search">
-        <h1 class="h3 mb-1 mt-2">Student Management</h1>
-        <div class="col-md-6 ms-auto">
+{% block style %}
+<style>
+    a {
+        text-decoration: none;
+    }
 
-            <input class="p-1" style="border-radius: 10px;" type="search" placeholder="Enter Name ...">
-            <button class="p-1" style="border-radius: 50px;" type="submit">_Q_</button>
-            <button style="border-radius: 10px;" class="bg-info p-1" type="submit">Add Student</button>
+    .hov {
+        border-radius: 15px;
+    }
+
+    .hov:hover {
+        border: 2px solid blue;
+        transform: translateY(-5px);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .hovr {
+        border-radius: 15px;
+    }
+
+    .hovr:hover {
+        border: 2px solid red;
+        transform: translateY(-5px);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="top-nav">
+    <div class="search-bar">
+        <input type="text" placeholder="Search drives, companies...">
+        <i class="bi bi-search"></i>
+    </div>
+    <div class="user-info">
+        <div class="notification-icon">
+            <i class="bi bi-bell"></i>
+            <span class="notification-badge">1</span>
+        </div>
+        <div class="user-avatar">AD</div>
+        <div>
+            <div style="font-weight: 600; font-size: 0.9rem;">Admin User</div>
+            <div style="font-size: 0.8rem; color: #999;">administrator</div>
         </div>
     </div>
-    <main class="p-4 mt-3">
-        <div class=" p-3">
-            <h5>Students</h5>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Sr.No</th>
-                        <th>Student Name</th>
-                        <th>Details</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Company 2</td>
-                        <td><button style="border-radius: 10px;" class="bg-info">View Details</button></td>
-                        <td><button style="border-radius: 10px;" class="bg-danger" type="button">Block</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class=" p-3 mt-3">
-            <h5>Blocked Students</h5>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Sr.No</th>
-                        <th>Student Name</th>
-                        <th>Details</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Company 2</td>
-                        <td><button style="border-radius: 10px;" class="bg-info">View Details</button></td>
-                        <td><button style="border-radius: 10px;" class="bg-danger" type="button">Unblock</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </main>
 </div>
-{% endblock %}
+
+<div class="page-header">
+    <h1><i class="bi bi-people"></i> Student Management</h1>
+    <p>Monitor and manage all student across placement drives</p>
+</div>
+
+
+
+<div class="stats-row">
+    <div class="stat-card hov">
+        <div class="stat-number">{{t_s}}</div>
+        <div class="stat-label">Total Students</div>
+    </div>
+    <div class="stat-card applied hov">
+        <div class="stat-number">{{t_app}}</div>
+        <div class="stat-label">Approved</div>
+    </div>
+    <div class="stat-card shortlisted hovr">
+        <div class="stat-number">{{t_b}}</div>
+        <div class="stat-label">Blacklisted</div>
+    </div>
+
+
+</div>
+
+<div class="filter-grid">
+    <div class="form-group">
+        <label>Search</label>
+        <input type="text" class="form-control" placeholder="Student name, roll number...">
+    </div>
+
+    <div class="form-group">
+        <label>Status</label>
+        <select class="form-control">
+            <option>All Status</option>
+            <option>Approved</option>
+            <option>Blocked</option>
+        </select>
+    </div>
+
+
+
+
+
+
+
+    <div class="form-group">
+        <label>&nbsp;</label>
+        <button class="btn btn-primary" style="width: 100%;">
+            <i class="bi bi-search"></i> Apply Filters
+        </button>
+    </div>
+</div>
+</div>
+
+<div class="table-container">
+    <div class="table-header">
+        <h5>All Applications</h5>
+
+    </div>
+
+
+    <div id="tableView">
+        <table class="applications-table">
+            <thead>
+                <tr>
+                    <th style="width: 40px;">
+                        <input type="checkbox" class="table-checkbox">
+                    </th>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>Total Applications</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for s in stud %}
+                    <td>
+                        <input type="checkbox" class="table-checkbox app-checkbox">
+                    </td>
+                    <td><strong>{{s.id}}</strong></td>
+                    <td>
+                        <div class="student-info-cell">
+
+                            <div class="student-details">
+                                <div class="student-name">{{s.name}}</div>
+
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="drive-info">
+                            {% set ns = namespace(count=0) %}
+
+                            {% for d in apple %}
+                            {% if d.student_id_id == s.id %}
+
+                            {% set ns.count = ns.count + 1 %}
+                            {% endif %}
+                            {% endfor %}
+                            <div class="drive-title-sm">{{ns.count}}</div>
+
+                        </div>
+                    </td>
+
+                    <td>{% if s.is_blacklisted == False %}
+
+                        <span class="status-badge status-selected">Approved</span>
+
+                        {% else %}
+                        <span class="status-badge status-shortlisted">Blocked</span>
+
+                        {% endif %}
+
+                    </td>
+                    <td>
+                        <div class="table-actions">
+                            <button class="btn-sm btn-view">
+                                <i class="bi bi-eye"></i> View
+                            </button>
+                        </div>
+                    </td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>

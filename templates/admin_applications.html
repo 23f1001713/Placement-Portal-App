@@ -1,0 +1,188 @@
+{% extends "admin_base.html" %}
+{% block title %}Admin Application Page{% endblock %}
+{% block content %}
+<div class="top-nav">
+    <div class="search-bar">
+        <input type="text" placeholder="Search drives, companies...">
+        <i class="bi bi-search"></i>
+    </div>
+    <div class="user-info">
+        <div class="notification-icon">
+            <i class="bi bi-bell"></i>
+            <span class="notification-badge">1</span>
+        </div>
+        <div class="user-avatar">AD</div>
+        <div>
+            <div style="font-weight: 600; font-size: 0.9rem;">Admin User</div>
+            <div style="font-size: 0.8rem; color: #999;">administrator</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="page-header">
+    <h1><i class="bi bi-file-earmark-text"></i> Applications Management</h1>
+    <p>Monitor and manage all student applications across placement drives</p>
+</div>
+<div class="stats-row">
+    <div class="stat-card">
+        <div class="stat-number">{{t_a}}</div>
+        <div class="stat-label">Total Applications</div>
+    </div>
+    <div class="stat-card applied">
+        <div class="stat-number">{{t_app}}</div>
+        <div class="stat-label">Selected</div>
+    </div>
+    <div class="stat-card shortlisted">
+        <div class="stat-number">{{t_s}}</div>
+        <div class="stat-label">Shortlisted</div>
+    </div>
+    <div class="stat-card selected">
+        <div class="stat-number">{{t_p}}</div>
+        <div class="stat-label">Pending</div>
+    </div>
+    <div class="stat-card rejected">
+        <div class="stat-number">{{t_r}}</div>
+        <div class="stat-label">Rejected</div>
+    </div>
+</div>
+
+<div class="filters-section">
+    <div class="filter-header">
+        <h5><i class="bi bi-funnel"></i> Filters</h5>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn-export">
+                <i class="bi bi-download"></i> Export Data
+            </button>
+            <button class="btn-outline" onclick="clearAllFilters()">
+                <i class="bi bi-x-circle"></i> Clear All
+            </button>
+        </div>
+    </div>
+
+    <div class="filter-grid">
+        <div class="form-group">
+            <label>Search</label>
+            <input type="text" class="form-control" placeholder="Student name, roll number...">
+        </div>
+
+        <div class="form-group">
+            <label>Status</label>
+            <select class="form-control">
+                <option>All Status</option>
+                <option>Applied</option>
+                <option>Shortlisted</option>
+                <option>Selected</option>
+                <option>Rejected</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Drive</label>
+            <select class="form-control">
+                <option>All Drives</option>
+                <option>Senior Software Engineer - Tech Solutions</option>
+                <option>Data Scientist - Digital Innovations</option>
+                <option>Full Stack Developer - Global Enterprises</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Department</label>
+            <select class="form-control">
+                <option>All Departments</option>
+                <option>Computer Science</option>
+                <option>Electronics</option>
+                <option>Mechanical</option>
+                <option>Civil</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Company</label>
+            <select class="form-control">
+                <option>All Companies</option>
+                <option>Tech Solutions Inc.</option>
+                <option>Digital Innovations</option>
+                <option>Global Enterprises</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>&nbsp;</label>
+            <button class="btn btn-primary" style="width: 100%;">
+                <i class="bi bi-search"></i> Apply Filters
+            </button>
+        </div>
+    </div>
+</div>
+<div id="tableView">
+    <table class="applications-table">
+        <thead>
+            <tr>
+                <th style="width: 40px;">
+                    <input type="checkbox" class="table-checkbox" onchange="selectAllApplications(this)">
+                </th>
+                <th>Application ID</th>
+                <th>Student</th>
+                <th>Department</th>
+                <th>Drive / Company</th>
+                <th>Applied Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for a in apple %}
+                <td>
+                    <input type="checkbox" class="table-checkbox app-checkbox">
+                </td>
+                <td><strong>{{a.application_id}}</strong></td>
+                <td>
+                    <div class="student-info-cell">
+
+                        <div class="student-details">
+                            <div class="student-name">{{a.student_id}}</div>
+                            <div class="student-roll">CS2021089</div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <span class="dept-badge">Computer Science</span>
+                </td>
+                <td>
+                    <div class="drive-info">
+                        <div class="drive-title-sm">{{a.drive_id}}</div>
+                        <div class="company-name-sm">Digital Innovations</div>
+                    </div>
+                </td>
+                <td>{{a.applied_at}}</td>
+
+                <td>
+                    {% if a.status == 'SHORTLISTED' %}
+                    <span class="status-badge status-shortlisted">Shortlisted</span>
+                    {% elif a.status == 'SELECTED' %}
+                    <span class="status-badge status-selected">Selected</span>
+                    {% elif a.status == 'APPLIED' %}
+                    <span class="status-badge status-applied">Applied</span>
+                    {% else %}
+                    <span class="status-badge status-rejected">Rejected</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="table-actions">
+                        <button class="btn-sm btn-view">
+                            <i class="bi bi-eye"></i> View
+                        </button>
+                    </div>
+                </td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+{% endblock %}

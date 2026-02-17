@@ -192,23 +192,89 @@ def admin():
     return render_template('admin.html',t_s = total_student,t_c = total_companies, t_a = total_applications,t_a_d = total_active_drives)
 
 
+
+
+
+
 @app.route('/admin/student')
+@login_required
 def admin_student():
-    return render_template('admin_student.html')
+    total_student = Student.query.all()
+    apple = Application.query.all()
+    total_approved = len(Student.query.filter(Student.is_blacklisted!= True).all())
+    total_blocked = len(total_student) - total_approved
+    return render_template('admin_student.html',
+                           t_s = len(total_student),
+                           t_app = total_approved,
+                           t_b = total_blocked,
+                           stud = total_student,
+                           apple = apple
+                           )
+
+
+
+
+
+
+
 
 @app.route('/admin/companies')
+@login_required
 def admin_companies():
-    return render_template('admin_companies.html')
+    com_det = Company.query.all()
+    total_blocked = Company.query.filter(Company.approval_status != 'APPROVED').all()
+    drive = Drive.query.all()
+
+    return render_template('admin_companies.html', com_det = com_det,drive = drive,t_c = len(com_det) , t_d = len(drive) ,t_b = len(total_blocked) )
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/admin/drives')
+@login_required
 def admin_drives():
     return render_template('admin_drives.html')
 
 
+
+
+
+
+
+
+
+
 @app.route('/admin/report')
+@login_required
 def admin_reports():
     return render_template('admin_report.html')
 
+
+
+
+
+
+
+
+
+
+
+@app.route('/admin/applications')
+def admin_applications():
+    apple = Application.query.all()
+    total_application = len(Application.query.all())
+    total_pending = len(Application.query.filter_by(status='PENDING').all())
+    total_shortlisted = len(Application.query.filter_by(status='SHORTLISTED').all())
+    total_rejected = len(Application.query.filter_by(status='REJECTED').all())
+    total_selected = len(Application.query.filter_by(status='SELECTED').all())
+    return render_template('admin_applications.html',t_a = total_application,t_p = total_pending,t_app = total_selected,t_s = total_shortlisted,t_r = total_rejected,apple = apple)
 
 @app.route("/student")
 @login_required
@@ -230,7 +296,12 @@ def logout():
 
 
 
-
+@app.route('/test')
+def test():
+    com_det = Company.query.all()
+    for c in com_det:
+        print(c.approval_status)
+    return 'done'
 
 
 
