@@ -1,4 +1,4 @@
-{% extends "admin_base.html" %}
+{% extends "admin/admin_base.html" %}
 {% block title %}Admin Student Page{% endblock %}
 {% block style %}
 <style>
@@ -24,6 +24,13 @@
         border: 2px solid red;
         transform: translateY(-5px);
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .sidebar-menu a:hover,
+    .sidebar-menu a.a_s {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-left: 4px solid #4facfe;
     }
 </style>
 {% endblock %}
@@ -122,8 +129,9 @@
                 </tr>
             </thead>
             <tbody>
+                {% for s in stud %}
                 <tr>
-                    {% for s in stud %}
+
                     <td>
                         <input type="checkbox" class="table-checkbox app-checkbox">
                     </td>
@@ -170,8 +178,13 @@
                             </button>
                         </div>
                     </td>
-                    {% endfor %}
+
                 </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
+
+
+</div>
+{% endblock %}

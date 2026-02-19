@@ -1,0 +1,899 @@
+{% extends "student/student_base.html" %}
+{% block title %}My Profile {% endblock %}
+{% block style %}
+<style>
+    .navbar-menu a:hover,
+    .navbar-menu a.s {
+        background: rgba(232, 226, 226, 0.2);
+    }
+
+    .welcome-banner {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 50px;
+        border-radius: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .welcome-banner::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 600px;
+        height: 600px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 50%;
+    }
+
+    .welcome-banner::after {
+        content: '';
+        position: absolute;
+        bottom: -30%;
+        left: -5%;
+        width: 400px;
+        height: 400px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+    }
+
+    .welcome-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .welcome-banner h1 {
+        font-size: 2.5rem;
+        margin-bottom: 12px;
+        font-weight: 800;
+    }
+
+    .welcome-banner p {
+        font-size: 1.15rem;
+        opacity: 0.95;
+        margin: 0;
+    }
+
+    /* Quick Stats Cards */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
+    }
+
+    .stat-card {
+        background: white;
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        border-left: 5px solid #667eea;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .stat-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        flex-shrink: 0;
+    }
+
+    .stat-info h3 {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #2d3436;
+        margin-bottom: 5px;
+    }
+
+    .stat-info p {
+        color: #636e72;
+        font-size: 0.95rem;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 600;
+    }
+
+    /* Section Cards */
+    .section-card {
+        background: white;
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        margin-bottom: 30px;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #f0f0f0;
+    }
+
+    .section-header h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #2d3436;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0;
+    }
+
+    .section-header .icon {
+        color: #667eea;
+        font-size: 1.8rem;
+    }
+
+    .view-all-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 10px 24px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .view-all-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        color: white;
+    }
+
+    /* Drive Cards */
+    .drives-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 25px;
+    }
+
+    .drive-card {
+        background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
+        border-radius: 16px;
+        padding: 25px;
+        border: 2px solid #e9ecef;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .drive-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .drive-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        border-color: #667eea;
+    }
+
+    .drive-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 15px;
+    }
+
+    .drive-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #2d3436;
+        margin-bottom: 8px;
+    }
+
+    .company-name {
+        color: #667eea;
+        font-size: 0.95rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .drive-badge {
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .badge-new {
+        background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+        color: white;
+    }
+
+    .badge-urgent {
+        background: linear-gradient(135deg, #ff7675 0%, #fd79a8 100%);
+        color: white;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+        0%,
+        100% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.7;
+        }
+    }
+
+    .drive-meta {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin: 20px 0;
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+        color: #636e72;
+    }
+
+    .meta-item i {
+        color: #667eea;
+        font-size: 1.1rem;
+    }
+
+    .drive-footer {
+        display: flex;
+        gap: 12px;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 2px solid #f0f0f0;
+    }
+
+    .btn-apply {
+        flex: 1;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 10px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .btn-apply:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-details {
+        background: white;
+        color: #667eea;
+        padding: 12px 20px;
+        border-radius: 10px;
+        border: 2px solid #667eea;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-details:hover {
+        background: #667eea;
+        color: white;
+    }
+
+    /* Application Cards */
+    .applications-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .application-card {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 20px;
+        transition: all 0.3s ease;
+        border-left: 4px solid #667eea;
+    }
+
+    .application-card:hover {
+        background: white;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transform: translateX(5px);
+    }
+
+    .app-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    .app-title {
+        font-weight: 700;
+        color: #2d3436;
+        font-size: 1.05rem;
+        margin-bottom: 5px;
+    }
+
+    .app-company {
+        color: #636e72;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .status-badge {
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .status-applied {
+        background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+        color: white;
+    }
+
+    .status-shortlisted {
+        background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+        color: #2d3436;
+    }
+
+    .status-selected {
+        background: linear-gradient(135deg, #55efc4 0%, #00b894 100%);
+        color: white;
+    }
+
+    .status-rejected {
+        background: linear-gradient(135deg, #fab1a0 0%, #ff7675 100%);
+        color: white;
+    }
+
+    .app-date {
+        font-size: 0.85rem;
+        color: #b2bec3;
+        margin-top: 8px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .navbar-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            flex-direction: column;
+            gap: 0;
+            padding: 15px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-menu.active {
+            display: flex;
+        }
+
+        .navbar-menu a {
+            width: 100%;
+            padding: 12px 30px;
+            border-radius: 0;
+        }
+
+        .mobile-menu-toggle {
+            display: block;
+        }
+
+        .main-container {
+            padding: 0 15px;
+        }
+
+        .welcome-banner {
+            padding: 30px 25px;
+        }
+
+        .welcome-banner h1 {
+            font-size: 1.8rem;
+        }
+
+        .drives-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .navbar-container {
+            padding: 0 15px;
+        }
+    }
+</style>
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="main-container">
+
+    <!-- Welcome Banner -->
+    <div class="welcome-banner">
+        <div class="welcome-content">
+            <h1>Welcome back, Rahul Kumar! 👋</h1>
+            <p>You have 3 new placement drives and 2 application updates waiting for you.</p>
+        </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="bi bi-briefcase-fill"></i>
+            </div>
+            <div class="stat-info">
+                <h3>15</h3>
+                <p>Active Drives</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="bi bi-file-earmark-check-fill"></i>
+            </div>
+            <div class="stat-info">
+                <h3>7</h3>
+                <p>Applied</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="bi bi-star-fill"></i>
+            </div>
+            <div class="stat-info">
+                <h3>3</h3>
+                <p>Shortlisted</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="bi bi-trophy-fill"></i>
+            </div>
+            <div class="stat-info">
+                <h3>1</h3>
+                <p>Selected</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Latest Placement Drives -->
+    <div class="section-card">
+        <div class="section-header">
+            <h2>
+                <i class="bi bi-briefcase-fill icon"></i>
+                Latest Placement Drives
+            </h2>
+            <a href="student_drives.html" class="view-all-btn">
+                View All Drives <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="drives-grid">
+            <!-- Drive Card 1 -->
+            <div class="drive-card">
+                <div class="drive-header">
+                    <div>
+                        <div class="drive-title">Senior Software Engineer</div>
+                        <div class="company-name">
+                            <i class="bi bi-building"></i>
+                            Tech Solutions Inc.
+                        </div>
+                    </div>
+                    <span class="drive-badge badge-new">New</span>
+                </div>
+
+                <div class="drive-meta">
+                    <div class="meta-item">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <span>Bangalore</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-currency-rupee"></i>
+                        <span>12-15 LPA</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-calendar-check"></i>
+                        <span>28 Feb 2026</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-people-fill"></i>
+                        <span>45 Applied</span>
+                    </div>
+                </div>
+
+                <div class="drive-footer">
+                    <button class="btn-apply">
+                        <i class="bi bi-send-fill"></i>
+                        Apply Now
+                    </button>
+                    <button class="btn-details">
+                        <i class="bi bi-info-circle"></i>
+                        Details
+                    </button>
+                </div>
+            </div>
+
+            <!-- Drive Card 2 -->
+            <div class="drive-card">
+                <div class="drive-header">
+                    <div>
+                        <div class="drive-title">Data Scientist</div>
+                        <div class="company-name">
+                            <i class="bi bi-building"></i>
+                            Digital Innovations Ltd.
+                        </div>
+                    </div>
+                    <span class="drive-badge badge-urgent">2 Days Left</span>
+                </div>
+
+                <div class="drive-meta">
+                    <div class="meta-item">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <span>Hyderabad</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-currency-rupee"></i>
+                        <span>15-18 LPA</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-calendar-check"></i>
+                        <span>21 Feb 2026</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-people-fill"></i>
+                        <span>62 Applied</span>
+                    </div>
+                </div>
+
+                <div class="drive-footer">
+                    <button class="btn-apply">
+                        <i class="bi bi-send-fill"></i>
+                        Apply Now
+                    </button>
+                    <button class="btn-details">
+                        <i class="bi bi-info-circle"></i>
+                        Details
+                    </button>
+                </div>
+            </div>
+
+            <!-- Drive Card 3 -->
+            <div class="drive-card">
+                <div class="drive-header">
+                    <div>
+                        <div class="drive-title">Full Stack Developer</div>
+                        <div class="company-name">
+                            <i class="bi bi-building"></i>
+                            Global Enterprises
+                        </div>
+                    </div>
+                    <span class="drive-badge badge-new">New</span>
+                </div>
+
+                <div class="drive-meta">
+                    <div class="meta-item">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <span>Pune</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-currency-rupee"></i>
+                        <span>10-12 LPA</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-calendar-check"></i>
+                        <span>25 Feb 2026</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-people-fill"></i>
+                        <span>89 Applied</span>
+                    </div>
+                </div>
+
+                <div class="drive-footer">
+                    <button class="btn-apply">
+                        <i class="bi bi-send-fill"></i>
+                        Apply Now
+                    </button>
+                    <button class="btn-details">
+                        <i class="bi bi-info-circle"></i>
+                        Details
+                    </button>
+                </div>
+            </div>
+
+            <!-- Drive Card 4 -->
+            <div class="drive-card">
+                <div class="drive-header">
+                    <div>
+                        <div class="drive-title">Product Manager</div>
+                        <div class="company-name">
+                            <i class="bi bi-building"></i>
+                            Startup Hub
+                        </div>
+                    </div>
+                    <span class="drive-badge badge-new">New</span>
+                </div>
+
+                <div class="drive-meta">
+                    <div class="meta-item">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <span>Mumbai</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-currency-rupee"></i>
+                        <span>18-22 LPA</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-calendar-check"></i>
+                        <span>01 Mar 2026</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-people-fill"></i>
+                        <span>28 Applied</span>
+                    </div>
+                </div>
+
+                <div class="drive-footer">
+                    <button class="btn-apply">
+                        <i class="bi bi-send-fill"></i>
+                        Apply Now
+                    </button>
+                    <button class="btn-details">
+                        <i class="bi bi-info-circle"></i>
+                        Details
+                    </button>
+                </div>
+            </div>
+
+            <!-- Drive Card 5 -->
+            <div class="drive-card">
+                <div class="drive-header">
+                    <div>
+                        <div class="drive-title">Backend Developer</div>
+                        <div class="company-name">
+                            <i class="bi bi-building"></i>
+                            Cloud Systems
+                        </div>
+                    </div>
+                    <span class="drive-badge badge-urgent">1 Day Left</span>
+                </div>
+
+                <div class="drive-meta">
+                    <div class="meta-item">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <span>Delhi NCR</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-currency-rupee"></i>
+                        <span>14-17 LPA</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-calendar-check"></i>
+                        <span>20 Feb 2026</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-people-fill"></i>
+                        <span>54 Applied</span>
+                    </div>
+                </div>
+
+                <div class="drive-footer">
+                    <button class="btn-apply">
+                        <i class="bi bi-send-fill"></i>
+                        Apply Now
+                    </button>
+                    <button class="btn-details">
+                        <i class="bi bi-info-circle"></i>
+                        Details
+                    </button>
+                </div>
+            </div>
+
+            <!-- Drive Card 6 -->
+            <div class="drive-card">
+                <div class="drive-header">
+                    <div>
+                        <div class="drive-title">UI/UX Designer</div>
+                        <div class="company-name">
+                            <i class="bi bi-building"></i>
+                            Creative Labs
+                        </div>
+                    </div>
+                    <span class="drive-badge badge-new">New</span>
+                </div>
+
+                <div class="drive-meta">
+                    <div class="meta-item">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <span>Bangalore</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-currency-rupee"></i>
+                        <span>8-12 LPA</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-calendar-check"></i>
+                        <span>05 Mar 2026</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-people-fill"></i>
+                        <span>31 Applied</span>
+                    </div>
+                </div>
+
+                <div class="drive-footer">
+                    <button class="btn-apply">
+                        <i class="bi bi-send-fill"></i>
+                        Apply Now
+                    </button>
+                    <button class="btn-details">
+                        <i class="bi bi-info-circle"></i>
+                        Details
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- My Applications -->
+    <div class="section-card">
+        <div class="section-header">
+            <h2>
+                <i class="bi bi-clock-history icon"></i>
+                My Recent Applications
+            </h2>
+            <a href="student_applications.html" class="view-all-btn">
+                View All Applications <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="applications-list">
+            <!-- Application 1 -->
+            <div class="application-card">
+                <div class="app-header">
+                    <div>
+                        <div class="app-title">Senior Software Engineer</div>
+                        <div class="app-company">
+                            <i class="bi bi-building"></i>
+                            Tech Solutions Inc.
+                        </div>
+                    </div>
+                    <span class="status-badge status-shortlisted">Shortlisted</span>
+                </div>
+                <div class="app-date">
+                    <i class="bi bi-calendar3"></i> Applied on 12 Feb 2026
+                </div>
+            </div>
+
+            <!-- Application 2 -->
+            <div class="application-card">
+                <div class="app-header">
+                    <div>
+                        <div class="app-title">Data Analyst</div>
+                        <div class="app-company">
+                            <i class="bi bi-building"></i>
+                            Analytics Corp
+                        </div>
+                    </div>
+                    <span class="status-badge status-selected">Selected</span>
+                </div>
+                <div class="app-date">
+                    <i class="bi bi-calendar3"></i> Applied on 10 Feb 2026
+                </div>
+            </div>
+
+            <!-- Application 3 -->
+            <div class="application-card">
+                <div class="app-header">
+                    <div>
+                        <div class="app-title">Backend Developer</div>
+                        <div class="app-company">
+                            <i class="bi bi-building"></i>
+                            Cloud Systems
+                        </div>
+                    </div>
+                    <span class="status-badge status-shortlisted">Shortlisted</span>
+                </div>
+                <div class="app-date">
+                    <i class="bi bi-calendar3"></i> Applied on 08 Feb 2026
+                </div>
+            </div>
+
+            <!-- Application 4 -->
+            <div class="application-card">
+                <div class="app-header">
+                    <div>
+                        <div class="app-title">Frontend Developer</div>
+                        <div class="app-company">
+                            <i class="bi bi-building"></i>
+                            Web Studios
+                        </div>
+                    </div>
+                    <span class="status-badge status-applied">Applied</span>
+                </div>
+                <div class="app-date">
+                    <i class="bi bi-calendar3"></i> Applied on 05 Feb 2026
+                </div>
+            </div>
+
+            <!-- Application 5 -->
+            <div class="application-card">
+                <div class="app-header">
+                    <div>
+                        <div class="app-title">DevOps Engineer</div>
+                        <div class="app-company">
+                            <i class="bi bi-building"></i>
+                            Infrastructure Inc.
+                        </div>
+                    </div>
+                    <span class="status-badge status-rejected">Not Selected</span>
+                </div>
+                <div class="app-date">
+                    <i class="bi bi-calendar3"></i> Applied on 01 Feb 2026
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+{% endblock %}

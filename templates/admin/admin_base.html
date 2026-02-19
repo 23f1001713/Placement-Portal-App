@@ -70,12 +70,7 @@
             transition: all 0.3s ease;
         }
 
-        .sidebar-menu a:hover,
-        .sidebar-menu a.active {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border-left: 4px solid #4facfe;
-        }
+
 
         .sidebar-menu i {
             margin-right: 12px;
@@ -1410,37 +1405,37 @@
                 </div>
                 <ul class="sidebar-menu">
                     <li>
-                        <a href="{{url_for('admin')}}">
+                        <a href="{{url_for('admin')}}" class="a">
                             <i class="bi bi-speedometer2"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{url_for('admin_companies')}}">
+                        <a href="{{url_for('admin_companies')}}" class="a_c">
                             <i class="bi bi-building"></i>
                             <span>Companies</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{url_for('admin_student')}}">
+                        <a href="{{url_for('admin_student')}}" class="a_s">
                             <i class="bi bi-people"></i>
                             <span>Students</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{url_for('admin_drives')}}" class="active">
+                        <a href="{{url_for('admin_drives')}}" class="a_p">
                             <i class="bi bi-briefcase"></i>
                             <span>Placement Drives</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{url_for('admin_applications')}}">
+                        <a href="{{url_for('admin_applications')}}" class="a_a">
                             <i class="bi bi-file-earmark-text"></i>
                             <span>Applications</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{url_for('admin_reports')}}">
+                        <a href="{{url_for('admin_reports')}}" class="a_r">
                             <i class="bi bi-graph-up"></i>
                             <span>Reports</span>
                         </a>

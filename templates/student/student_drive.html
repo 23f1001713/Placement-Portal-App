@@ -1,0 +1,617 @@
+{% extends "student/student_base.html" %}
+{% block title %}My Profile {% endblock %}
+{% block style %}
+<style>
+    .navbar-menu a:hover,
+    .navbar-menu a.s_d {
+        background: rgba(232, 226, 226, 0.2);
+    }
+
+
+    .page-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 40px;
+        border-radius: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+    }
+
+    .page-header h1 {
+        font-size: 2.3rem;
+        margin-bottom: 10px;
+        font-weight: 800;
+    }
+
+    .page-header p {
+        font-size: 1.1rem;
+        opacity: 0.95;
+        margin: 0;
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+        background: white;
+        padding: 25px;
+        border-radius: 16px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        margin-bottom: 30px;
+    }
+
+    .filter-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        align-items: end;
+    }
+
+    .filter-group label {
+        display: block;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: #2d3436;
+        margin-bottom: 8px;
+    }
+
+    .filter-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+    }
+
+    .filter-control:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+
+    .btn-filter {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 12px 30px;
+        border-radius: 10px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .btn-filter:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-clear {
+        background: white;
+        color: #636e72;
+        padding: 12px 30px;
+        border-radius: 10px;
+        border: 2px solid #e9ecef;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-clear:hover {
+        border-color: #667eea;
+        color: #667eea;
+    }
+
+    /* Results Info */
+    .results-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        padding: 0 5px;
+    }
+
+    .results-count {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #2d3436;
+    }
+
+    .results-count span {
+        color: #667eea;
+    }
+
+    .view-toggle {
+        display: flex;
+        gap: 10px;
+    }
+
+    .view-btn {
+        padding: 8px 16px;
+        border: 2px solid #e9ecef;
+        background: white;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-weight: 500;
+        color: #636e72;
+    }
+
+    .view-btn.active,
+    .view-btn:hover {
+        background: #667eea;
+        color: white;
+        border-color: #667eea;
+    }
+
+    /* Drive Cards - Grid View */
+    .drives-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        gap: 25px;
+    }
+
+    .drive-card {
+        background: white;
+        border-radius: 16px;
+        padding: 25px;
+        border: 2px solid #e9ecef;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .drive-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .drive-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+        border-color: #667eea;
+    }
+
+    .drive-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 18px;
+    }
+
+    .drive-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #2d3436;
+        margin-bottom: 8px;
+        line-height: 1.3;
+    }
+
+    .company-name {
+        color: #667eea;
+        font-size: 1rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .drive-badge {
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+    }
+
+    .badge-new {
+        background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+        color: white;
+    }
+
+    .badge-urgent {
+        background: linear-gradient(135deg, #ff7675 0%, #fd79a8 100%);
+        color: white;
+        animation: pulse 2s infinite;
+    }
+
+    .badge-closing {
+        background: linear-gradient(135deg, #fdcb6e 0%, #ffeaa7 100%);
+        color: #2d3436;
+    }
+
+    @keyframes pulse {
+
+        0%,
+        100% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.7;
+        }
+    }
+
+    .drive-description {
+        color: #636e72;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        margin: 15px 0;
+        display: -webkit-box;
+
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .drive-meta {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin: 20px 0;
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+        color: #636e72;
+    }
+
+    .meta-item i {
+        color: #667eea;
+        font-size: 1.1rem;
+    }
+
+    .drive-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 15px 0;
+    }
+
+    .tag {
+        background: #e8f4ff;
+        color: #0984e3;
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .drive-footer {
+        display: flex;
+        gap: 12px;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 2px solid #f0f0f0;
+    }
+
+    .btn-apply {
+        flex: 1;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 10px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .btn-apply:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-apply:disabled {
+        background: #b2bec3;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .btn-details {
+        background: white;
+        color: #667eea;
+        padding: 12px 20px;
+        border-radius: 10px;
+        border: 2px solid #667eea;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-details:hover {
+        background: #667eea;
+        color: white;
+    }
+
+    /* List View */
+    .drives-list {
+        display: none;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .drives-list.active {
+        display: flex;
+    }
+
+    .drive-list-item {
+        background: white;
+        border-radius: 16px;
+        padding: 25px;
+        border: 2px solid #e9ecef;
+        transition: all 0.3s ease;
+        display: flex;
+        gap: 25px;
+        align-items: start;
+    }
+
+    .drive-list-item:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        border-color: #667eea;
+    }
+
+    .drive-list-content {
+        flex: 1;
+    }
+
+    .drive-list-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        min-width: 150px;
+    }
+
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 80px 20px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .empty-state i {
+        font-size: 5rem;
+        color: #dfe6e9;
+        margin-bottom: 20px;
+    }
+
+    .empty-state h3 {
+        color: #636e72;
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
+    .empty-state p {
+        color: #b2bec3;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .navbar-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            flex-direction: column;
+            gap: 0;
+            padding: 15px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-menu.active {
+            display: flex;
+        }
+
+        .navbar-menu a {
+            width: 100%;
+            padding: 12px 30px;
+            border-radius: 0;
+        }
+
+        .mobile-menu-toggle {
+            display: block;
+        }
+
+        .main-container {
+            padding: 0 15px;
+        }
+
+        .page-header {
+            padding: 25px;
+        }
+
+        .page-header h1 {
+            font-size: 1.8rem;
+        }
+
+        .drives-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .filter-row {
+            grid-template-columns: 1fr;
+        }
+
+        .results-info {
+            flex-direction: column;
+            gap: 15px;
+            align-items: start;
+        }
+
+        .drive-list-item {
+            flex-direction: column;
+        }
+
+        .drive-list-actions {
+            width: 100%;
+        }
+
+        .navbar-container {
+            padding: 0 15px;
+        }
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<!-- Main Container -->
+<div class="main-container">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1><i class="bi bi-briefcase-fill"></i> Placement Drives</h1>
+        <p>Explore and apply for the latest job opportunities from top companies</p>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+        <div class="filter-row">
+            <div class="filter-group">
+                <label>Search</label>
+                <input type="text" class="filter-control" placeholder="Job title, company...">
+            </div>
+
+            <div class="filter-group">
+                <label>Location</label>
+                <select class="filter-control">
+                    <option value="">All Locations</option>
+                    <option value="bangalore">Bangalore</option>
+                    <option value="hyderabad">Hyderabad</option>
+                    <option value="pune">Pune</option>
+                    <option value="mumbai">Mumbai</option>
+                    <option value="delhi">Delhi NCR</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>Package Range</label>
+                <select class="filter-control">
+                    <option value="">All Packages</option>
+                    <option value="0-10">0-10 LPA</option>
+                    <option value="10-15">10-15 LPA</option>
+                    <option value="15-20">15-20 LPA</option>
+                    <option value="20+">20+ LPA</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>Sort By</label>
+                <select class="filter-control">
+                    <option value="recent">Most Recent</option>
+                    <option value="deadline">Deadline</option>
+                    <option value="package">Package (High to Low)</option>
+                    <option value="applicants">Most Applied</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>&nbsp;</label>
+                <button class="btn-filter">
+                    <i class="bi bi-search"></i> Search
+                </button>
+            </div>
+
+            <div class="filter-group">
+                <label>&nbsp;</label>
+                <button class="btn-clear">
+                    <i class="bi bi-x-circle"></i> Clear
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Info -->
+    <div class="results-info">
+        <div class="results-count">
+            Showing <span>24</span> placement drives
+        </div>
+
+    </div>
+
+    <!-- Drives Grid View -->
+    <div class="drives-grid" id="gridView">
+
+        <!-- Drive Card 1 -->
+        <div class="drive-card">
+            <div class="drive-header">
+                <div>
+                    <div class="drive-title">Senior Software Engineer</div>
+                    <div class="company-name">
+                        <i class="bi bi-building"></i>
+                        Tech Solutions Inc.
+                    </div>
+                </div>
+                <span class="drive-badge badge-new">New</span>
+                <span class="drive-badge badge-urgent">1 Day Left</span>
+                <span class="drive-badge badge-urgent">2 Days Left</span>
+            </div>
+
+            <p class="drive-description">
+                We are looking for experienced software engineers to join our growing team. You will work on
+                cutting-edge technologies and innovative projects.
+            </p>
+
+            <div class="drive-meta">
+
+                <div class="meta-item">
+                    <i class="bi bi-calendar-check"></i>
+                    <span>Deadline: 28 Feb</span>
+                </div>
+                <div class="meta-item">
+                    <i class="bi bi-people-fill"></i>
+                    <span>45 Applied</span>
+                </div>
+            </div>
+            <div class="drive-tags">
+                <p style="font-size: 12px;">Eligibility : </p><span class="tag">Python</span>
+            </div>
+
+
+            <div class="drive-footer">
+                <button class="btn-apply">
+                    <i class="bi bi-send-fill"></i>
+                    Apply Now
+                </button>
+                <button class="btn-details">
+                    <i class="bi bi-info-circle"></i>
+                </button>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+</div>
+
+{% endblock %}

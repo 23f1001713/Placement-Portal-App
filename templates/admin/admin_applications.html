@@ -1,5 +1,39 @@
-{% extends "admin_base.html" %}
+{% extends "admin/admin_base.html" %}
 {% block title %}Admin Application Page{% endblock %}
+{% block style %}
+<style>
+    a {
+        text-decoration: none;
+    }
+
+    .hov {
+        border-radius: 15px;
+    }
+
+    .hov:hover {
+        border: 2px solid blue;
+        transform: translateY(-5px);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .hovr {
+        border-radius: 15px;
+    }
+
+    .hovr:hover {
+        border: 2px solid red;
+        transform: translateY(-5px);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .sidebar-menu a:hover,
+    .sidebar-menu a.a_a {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-left: 4px solid #4facfe;
+    }
+</style>
+{% endblock %}
 {% block content %}
 <div class="top-nav">
     <div class="search-bar">
@@ -25,23 +59,23 @@
     <p>Monitor and manage all student applications across placement drives</p>
 </div>
 <div class="stats-row">
-    <div class="stat-card">
+    <div class="stat-card hov">
         <div class="stat-number">{{t_a}}</div>
         <div class="stat-label">Total Applications</div>
     </div>
-    <div class="stat-card applied">
+    <div class="stat-card hov applied">
         <div class="stat-number">{{t_app}}</div>
         <div class="stat-label">Selected</div>
     </div>
-    <div class="stat-card shortlisted">
+    <div class="stat-card hov shortlisted">
         <div class="stat-number">{{t_s}}</div>
         <div class="stat-label">Shortlisted</div>
     </div>
-    <div class="stat-card selected">
+    <div class="stat-card hovr selected">
         <div class="stat-number">{{t_p}}</div>
         <div class="stat-label">Pending</div>
     </div>
-    <div class="stat-card rejected">
+    <div class="stat-card hovr rejected">
         <div class="stat-number">{{t_r}}</div>
         <div class="stat-label">Rejected</div>
     </div>

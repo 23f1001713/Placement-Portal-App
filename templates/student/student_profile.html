@@ -1,0 +1,164 @@
+{% extends "student/student_base.html" %}
+{% block title %}My Profile {% endblock %}
+{% block style %}
+<style>
+    .navbar-menu a:hover,
+    .navbar-menu a.s_p {
+        background: rgba(232, 226, 226, 0.2);
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+
+<!-- Main Container -->
+<div class="main-container">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1><i class="bi bi-person-circle"></i> My Profile</h1>
+        <p>Manage your personal information and preferences</p>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        <i class="bi bi-check-circle-fill" style="font-size: 1.3rem;"></i>
+        <span>Profile updated successfully!</span>
+    </div>
+
+    <!-- Profile Container -->
+    <div class="profile-container">
+
+        <!-- Left Sidebar -->
+        <div class="profile-sidebar">
+            <div class="profile-picture-container">
+                <div class="profile-picture">
+                    add
+                    <!-- <img src="profile.jpg" alt="Profile"> -->
+                </div>
+                <label for="profilePicture" class="change-photo-btn">
+                    <i class="bi bi-camera"></i>
+                </label>
+                <input type="file" id="profilePicture" style="display: none;" accept="image/*">
+            </div>
+
+            <h3 style="margin-bottom: 5px; color: #2d3436;">Rahul Kumar</h3>
+            <p style="color: #636e72; font-size: 0.9rem;">CS2021089</p>
+
+            <!-- Profile Completion -->
+            <div class="profile-completion">
+                <div class="completion-text">Profile Completion</div>
+                <div class="completion-percentage">85%</div>
+                <div class="progress-bar-custom">
+                    <div class="progress-fill"></div>
+                </div>
+
+                <div class="completion-tips">
+                    <h4>Complete Your Profile:</h4>
+                    <ul>
+                        <li>Add profile picture</li>
+                        <li>Update skills section</li>
+                        <li>Upload latest resume</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content - Profile Form -->
+        <div class="profile-content">
+
+            <!-- Personal Information -->
+            <div class="form-section">
+                <h2 class="section-title">
+                    <i class="bi bi-person-fill"></i>
+                    Personal Information
+                </h2>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label required">Full Name</label>
+                        <input type="text" class="form-control" value="Rahul Kumar" placeholder="Enter your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Roll Number</label>
+                        <input type="text" class="form-control" value="CS2021089" placeholder="Enter roll number"
+                            readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Email Address</label>
+                        <input type="email" class="form-control" value="rahul.kumar@example.com"
+                            placeholder="Enter email">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Phone Number</label>
+                        <input type="tel" class="form-control" value="+91 98765 43210" placeholder="Enter phone number">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control" value="2003-05-15">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Gender</label>
+                        <select class="form-control">
+                            <option value="">Select Gender</option>
+                            <option value="male" selected>Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Social Links -->
+            <div class="form-section">
+                <h2 class="section-title">
+                    <i class="bi bi-link-45deg"></i>
+                    Social Links (Optional)
+                </h2>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">LinkedIn Profile</label>
+                        <input type="url" class="form-control" placeholder="https://linkedin.com/in/yourprofile">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">GitHub Profile</label>
+                        <input type="url" class="form-control" placeholder="https://github.com/yourusername">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Portfolio Website</label>
+                        <input type="url" class="form-control" placeholder="https://yourportfolio.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Other Link</label>
+                        <input type="url" class="form-control" placeholder="https://...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="form-actions">
+                <button type="button" class="btn btn-primary" onclick="saveProfile()">
+                    <i class="bi bi-check-circle"></i> Save Changes
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="window.location.href='student_dashboard.html'">
+                    <i class="bi bi-x-circle"></i> Cancel
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

@@ -44,7 +44,6 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        print(username , password)
         user = User.query.filter_by(username = username).first()
         if not user:
             flash('Invalid Username')
@@ -189,7 +188,7 @@ def admin():
     total_applications = len(Application.query.all())
     total_active_drives = len(Drive.query.all())
     total_companies = len(Company.query.all())
-    return render_template('admin.html',t_s = total_student,t_c = total_companies, t_a = total_applications,t_a_d = total_active_drives)
+    return render_template('admin/admin.html',t_s = total_student,t_c = total_companies, t_a = total_applications,t_a_d = total_active_drives)
 
 
 
@@ -203,7 +202,7 @@ def admin_student():
     apple = Application.query.all()
     total_approved = len(Student.query.filter(Student.is_blacklisted!= True).all())
     total_blocked = len(total_student) - total_approved
-    return render_template('admin_student.html',
+    return render_template('admin/admin_student.html',
                            t_s = len(total_student),
                            t_app = total_approved,
                            t_b = total_blocked,
@@ -225,7 +224,7 @@ def admin_companies():
     total_blocked = Company.query.filter(Company.approval_status != 'APPROVED').all()
     drive = Drive.query.all()
 
-    return render_template('admin_companies.html', com_det = com_det,drive = drive,t_c = len(com_det) , t_d = len(drive) ,t_b = len(total_blocked) )
+    return render_template('admin/admin_companies.html', com_det = com_det,drive = drive,t_c = len(com_det) , t_d = len(drive) ,t_b = len(total_blocked) )
 
 
 
@@ -240,7 +239,7 @@ def admin_companies():
 @app.route('/admin/drives')
 @login_required
 def admin_drives():
-    return render_template('admin_drives.html')
+    return render_template('admin/admin_drives.html')
 
 
 
@@ -254,7 +253,7 @@ def admin_drives():
 @app.route('/admin/report')
 @login_required
 def admin_reports():
-    return render_template('admin_report.html')
+    return render_template('admin/admin_report.html')
 
 
 
@@ -274,12 +273,47 @@ def admin_applications():
     total_shortlisted = len(Application.query.filter_by(status='SHORTLISTED').all())
     total_rejected = len(Application.query.filter_by(status='REJECTED').all())
     total_selected = len(Application.query.filter_by(status='SELECTED').all())
-    return render_template('admin_applications.html',t_a = total_application,t_p = total_pending,t_app = total_selected,t_s = total_shortlisted,t_r = total_rejected,apple = apple)
+    return render_template('admin/admin_applications.html',t_a = total_application,t_p = total_pending,t_app = total_selected,t_s = total_shortlisted,t_r = total_rejected,apple = apple)
+
+
+
+
+
+
+
+
 
 @app.route("/student")
 @login_required
 def student():
-    return render_template('student.html')
+    return render_template('student/student_dashboard.html')
+
+@app.route("/student/profile")
+@login_required
+def student_profile():
+    return render_template('student/student_profile.html')
+
+@app.route("/student/applications")
+@login_required
+def student_application():
+    return render_template('student/student_application.html')
+
+@app.route("/student/drive")
+@login_required
+def student_drive():
+    return render_template('student/student_drive.html')
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @app.route("/company")
