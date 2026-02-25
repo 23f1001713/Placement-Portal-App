@@ -21,7 +21,7 @@
             color: #333;
         }
 
-        /* Sidebar */
+
         .sidebar {
             position: fixed;
             top: 0;
@@ -156,8 +156,8 @@
 
         /* Page Header */
         .page-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background-color: white;
+            color: black;
             padding: 40px;
             border-radius: 15px;
             margin-bottom: 30px;
@@ -176,7 +176,7 @@
             font-size: 1rem;
         }
 
-        /* Statistics Cards */
+
         .stats-row {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -191,7 +191,7 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-top: 4px solid #667eea;
+            border-top: 4px solid blue;
         }
 
         .stat-card:hover {
@@ -214,7 +214,7 @@
         .stat-number {
             font-size: 2.5rem;
             font-weight: 700;
-            color: #667eea;
+            color: blue;
             margin-bottom: 8px;
         }
 
@@ -226,122 +226,8 @@
             font-weight: 500;
         }
 
-        /* Filter Section */
-        .filters-section {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
 
-        .filter-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
 
-        .filter-header h5 {
-            margin: 0;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #2d3436;
-        }
-
-        .filter-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            align-items: end;
-        }
-
-        .form-group label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #555;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .form-control {
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 10px 15px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-            outline: none;
-        }
-
-        .btn {
-            padding: 10px 25px;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-outline {
-            background: white;
-            border: 1px solid #e0e0e0;
-            color: #666;
-        }
-
-        .btn-outline:hover {
-            background: #f8f9fa;
-            border-color: #667eea;
-            color: #667eea;
-        }
-
-        /* Active Filters */
-        .active-filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #e9ecef;
-        }
-
-        .filter-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 12px;
-            background: #e8f4ff;
-            color: #0984e3;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .filter-tag i {
-            cursor: pointer;
-            font-size: 0.75rem;
-        }
-
-        .filter-tag i:hover {
-            color: #d63031;
-        }
-
-        /* Drive Cards */
         .drives-container {
             display: grid;
             gap: 20px;
@@ -353,7 +239,7 @@
             padding: 25px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
-            border-left: 5px solid #667eea;
+            border-left: 5px solid blue;
             position: relative;
         }
 
@@ -362,22 +248,7 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
         }
 
-        .drive-card.pending {
-            border-left-color: #fdcb6e;
-        }
 
-        .drive-card.approved {
-            border-left-color: #00b894;
-        }
-
-        .drive-card.rejected {
-            border-left-color: #d63031;
-        }
-
-        .drive-card.closed {
-            border-left-color: #636e72;
-            opacity: 0.85;
-        }
 
         .drive-header {
             display: flex;
@@ -392,13 +263,7 @@
             flex: 1;
         }
 
-        .drive-checkbox {
-            width: 20px;
-            height: 20px;
-            margin-right: 15px;
-            cursor: pointer;
-            accent-color: #667eea;
-        }
+
 
         .drive-title {
             font-size: 1.4rem;
@@ -461,7 +326,6 @@
             color: #2d3436;
         }
 
-        /* Drive Meta Info */
         .drive-meta {
             display: flex;
             flex-wrap: wrap;
@@ -485,37 +349,6 @@
             font-size: 1.1rem;
         }
 
-        /* Applicants Info */
-        .applicants-section {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin: 20px 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
-            border-radius: 10px;
-        }
-
-        .applicant-stat {
-            text-align: center;
-            padding: 10px;
-        }
-
-        .applicant-count {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #667eea;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .applicant-label {
-            font-size: 0.75rem;
-            color: #636e72;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 600;
-        }
 
         /* Action Buttons */
         .action-buttons {
@@ -539,12 +372,12 @@
         }
 
         .btn-view {
-            background: #667eea;
+            background: blue;
             color: white;
         }
 
         .btn-view:hover {
-            background: #5568d3;
+            background: blue;
             transform: scale(1.05);
         }
 

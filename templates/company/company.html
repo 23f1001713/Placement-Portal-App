@@ -1,0 +1,261 @@
+{% extends "company/company_base.html" %}
+{% block title %}company dashboard{% endblock %}
+{% block style %}
+<style>
+    a {
+        text-decoration: none;
+    }
+
+    .dash {
+        background: rgba(255, 255, 255, 0.2);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Main Container -->
+<div class="main-container">
+
+    <!-- Welcome Banner -->
+    <div class="welcome-banner">
+        <div class="welcome-content">
+            <div class="welcome-text">
+                <h1>Welcome back,{{c.company_name}}</h1>
+
+            </div>
+            <div
+                style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #e8f5e9; border-radius: 10px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    {% if c.approval_status == "APPROVED" %}
+                    <i class="bi bi-check-circle-fill" style="color: #00b894; font-size: 1.3rem;"></i>
+                    {% else %}
+                    <i class="bi bi-check-circle-fill" style="color: #f54607; font-size: 1.3rem;"></i>
+                    {% endif %}
+                    <span style="font-weight: 600; color: #2d3436;">Account Status : </span>
+                </div>
+                {% if c.approval_status == "APPROVED" %}
+                <span style="color: #00b894; font-weight: 700;"> Active</span>
+                {% else %}
+                <span style="color: #b81500; font-weight: 700;"> Blocked</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Quick Stats -->
+<div class="stats-grid">
+    <div class="stat-card ">
+
+        <div class="stat-info">
+            <h3>{{d_p}} </h3>
+            <p>Pending Approval</p>
+        </div>
+    </div>
+
+    <div class="stat-card ">
+
+        <div class="stat-info">
+            <h3>{{a_d}}</h3>
+            <p>Active Drives</p>
+        </div>
+    </div>
+
+    <div class="stat-card ">
+
+        <div class="stat-info">
+            <h3>{{t_a}}</h3>
+            <p>Total Applicants</p>
+        </div>
+    </div>
+
+    <div class="stat-card">
+
+        <div class="stat-info">
+            <h3>{{t_s}}</h3>
+            <p>Shortlisted</p>
+        </div>
+    </div>
+</div>
+
+
+<div class="content-grid">
+
+
+    <div>
+
+        <div class="section-card">
+            <div class="section-header">
+                <h2>
+                    <i class="bi bi-briefcase-fill icon"></i>
+                    Active Placement Drives
+                </h2>
+                <a href="{{url_for('company_drive')}}" class="view-all-btn">
+                    View All <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+            {% for drive in drives %}
+            <div class="drives-list">
+
+
+                <div class="drive-card">
+                    <div class="drive-header">
+                        <div>
+                            <div class="drive-id">{{drive.id}}</div>
+                            <div class="drive-title">{{drive.job_title}} </div>
+                        </div>
+                        {% if drive.status == 'APPROVED' %}
+                        <span class="drive-status status-active">Active</span>
+                        {% else %}
+                        <span class="drive-status status-pending">Pending Approval</span>
+                        {% endif%}
+                    </div>
+
+                    <div class="drive-meta">
+                        <div class="meta-item">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            <span>Description : {{drive.description}} </span>
+
+                            <div class="meta-item">
+                                <i class="bi bi-calendar-check"></i>
+                                <span>Deadline: {{drive.deadline}}</span>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="drive-actions">
+                            <a href="{{url_for('company_app')}}">
+                                <button class="btn-action btn-view">
+                                    <i class="bi bi-people"></i>
+                                    View Applicants
+                                </button>
+                            </a>
+                            <a href="{{url_for('close_drive', drive_id = drive.id)}}">
+                                <button class="btn-action btn-edit">
+                                    <i class="bi bi-pencil"></i>
+                                    Close Drive
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+
+
+
+
+        <div class="section-card">
+            <div class="section-header">
+                <h2>
+                    <i class="bi bi-people-fill icon"></i>
+                    Recent Applicants
+                </h2>
+                <a href="{{url_for('company_app')}}" class="view-all-btn">
+                    View All <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="applicants-list">
+                {% for app in applications %}
+                <div class="applicant-card">
+                    <div class="applicant-header">
+
+                        <div class="applicant-info">
+                            <div class="applicant-name">{{app.student.name}} </div>
+                            <div class="applicant-details">{{app.student.branch}} • {{app.student.cgpa}} </div>
+                        </div>
+
+                    </div>
+                    <div class="applicant-meta">
+                        <div class="applicant-meta-item">
+                            <i class="bi bi-briefcase"></i>
+                            <span><span>{{app.drive.job_title}} </span></span>
+                        </div>
+                        <div class="applicant-meta-item">
+                            <i class="bi bi-star-fill"></i>
+                            <span>CGPA: {{app.student.cgpa}} </span>
+                        </div>
+
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div>
+
+        <div class="quick-actions-panel">
+            <div class="section-header" style="border: none; padding-bottom: 0; margin-bottom: 20px;">
+                <h2 style="font-size: 1.2rem;">
+                    <i class="bi bi-lightning-fill icon"></i>
+                    Quick Actions
+                </h2>
+            </div>
+
+            <div class="quick-actions-grid">
+                <a href="{{url_for('company_create_drive',company_id = c.id)}}">
+                    <div class="action-item">
+                        <div class="action-icon">
+                            <i class="bi bi-plus-circle"></i>
+                        </div>
+                        <div class="action-text">
+                            <div class="action-title">Create New Drive</div>
+                            <div class="action-desc">Post a new job opportunity</div>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="{{url_for('company_app')}}">
+                    <div class="action-item">
+                        <div class="action-icon">
+                            <i class="bi bi-people"></i>
+                        </div>
+                        <div class="action-text">
+                            <div class="action-title">Review Applicants</div>
+                            <div class="action-desc">View and shortlist candidates</div>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="{{url_for('company_drive')}}">
+                    <div class="action-item">
+                        <div class="action-icon">
+                            <i class="bi bi-briefcase"></i>
+                        </div>
+                        <div class="action-text">
+                            <div class="action-title">Manage Drives</div>
+                            <div class="action-desc">Edit or close existing drives</div>
+                        </div>
+                    </div>
+                </a>
+
+
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+</div>
+
+</div>
+
+
+{% endblock %}

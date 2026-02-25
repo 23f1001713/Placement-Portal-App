@@ -1,0 +1,98 @@
+{% extends "company/company_base.html" %}
+{% block title %}company dashboard{% endblock %}
+{% block style %}
+<style>
+    .dri {
+        margin-left: 200px;
+        margin-right: 200px;
+    }
+
+    .drive {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    a {
+        text-decoration: none;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="dri">
+    <!-- Active Drives -->
+    <div class="section-card">
+        <div class="section-header">
+            <h2>
+                <i class="bi bi-briefcase-fill icon"></i>
+                Active Placement Drives
+            </h2>
+            <a href="{{url_for('company_create_drive',company_id=c.id)}}">
+                <div class="welcome-actions">
+                    <button class="btn-create-drive">
+                        <i class="bi bi-plus-circle-fill"></i>
+                        Create New Drive
+                    </button>
+                </div>
+            </a>
+        </div>
+
+        <div class="drives-list">
+            {% for d in drives %}
+            <div class="drive-card">
+                <div class="drive-header">
+                    <div>
+                        <div class="drive-id">{{d.id}}</div>
+                        <div class="drive-title">{{d.job_title}} </div>
+                    </div>
+                    {% if d.status == 'PENDING' %}
+                    <span class="drive-status status-pending">Pending Approval</span>
+                    {% elif d.status == 'APPROVED' %}
+                    <span class="drive-status status-active">Active</span>
+                    {% else %}
+                    <span class="drive-status status-active">Closed</span>
+                    {% endif %}
+                </div>
+
+                <div class="drive-meta">
+                    <div class="meta-item">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <span>Description : {{d.description}} </span>
+
+                        <div class="meta-item">
+                            <i class="bi bi-calendar-check"></i>
+                            <span>Deadline: {{d.deadline}}</span>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <div class="drive-actions">
+                    <a href="{{url_for('company_app')}}">
+                        <button class="btn-action btn-view">
+                            <i class="bi bi-people"></i>
+                            View Applicants
+                        </button>
+                    </a>
+                    <a href="url_for('close_drive' , drive_id = d.id)">
+                        <button class="btn-action btn-edit">
+                            <i class="bi bi-pencil"></i>
+                            Close
+                        </button>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+
+
+
+
+        </div>
+    </div>
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,145 @@
+{% extends "company/company_base.html" %}
+{% block title %}company dashboard{% endblock %}
+{% block style %}
+<style>
+    .app {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .status-applied {
+        background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+        margin: 1px;
+        padding-top: 5px;
+        padding: 5px;
+        border-radius: 12px;
+        color: white;
+        border: 2px solid blue;
+    }
+
+    .status-shortlisted {
+        background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+        color: #2d3436;
+        margin: 1px;
+        padding-top: 5px;
+        padding: 5px;
+        border-radius: 12px;
+        border: 2px solid blue;
+    }
+
+    .status-selected {
+        background: linear-gradient(135deg, #55efc4 0%, #00b894 100%);
+        color: white;
+        margin: 1px;
+        padding-top: 5px;
+        padding: 5px;
+        border: 2px solid blue;
+        border-radius: 12px;
+    }
+
+    .status-rejected {
+        background: linear-gradient(135deg, #fab1a0 0%, #ff7675 100%);
+        color: white;
+        margin: 1px;
+        padding-top: 5px;
+        padding: 5px;
+        border: 2px solid blue;
+        border-radius: 12px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="section-card">
+    <div class="section-header">
+        <h2>
+            <i class="bi bi-people-fill icon"></i>
+            All Applicants
+        </h2>
+
+    </div>
+    {% for app in applications %}
+    <div class="applicants-list">
+
+
+
+        <div class="applicant-card">
+            <div class="applicant-header">
+
+                <div class="applicant-info">
+                    <div class="applicant-name">{{app.student.name}} </div>
+                    <div class="applicant-details">{{app.student.branch}} • {{app.student.cgpa}} </div>
+                </div>
+
+                {% if app.status == 'PENDING' %}
+                <button class="status-applied">
+
+                    Status : Pending
+                </button>
+                {% elif app.status == 'SHORTLISTED' %}
+                <button class="status-shortlisted">
+
+                    Status : Shortlisted
+                </button>
+                {% elif app.status == 'REJECTED' %}
+                <button class="status-rejected">
+
+                    Status : Rejected
+                </button>
+                {% else %}
+                <button class="status-selected">
+
+                    Status : Selected
+                </button>
+                {% endif %}
+            </div>
+            <div class="applicant-meta">
+
+                <div class="applicant-meta-item">
+                    <i class="bi bi-briefcase"></i>
+                    <span><span>{{app.drive.job_title}} </span></span>
+                </div>
+                <div class="applicant-meta-item">
+                    <i class="bi bi-star-fill"></i>
+                    <span>CGPA: {{app.student.cgpa}} </span>
+                </div>
+
+            </div>
+            <div class="drive-actions">
+                <a href="{{url_for('shortlist' , apple_id = app.id)}}">
+                    <button class="btn-action btn-view">
+                        <i class="bi bi-people"></i>
+                        Shortlist
+                    </button>
+                </a>
+                <a href="{{url_for('select' , apple_id = app.id)}}">
+                    <button class="btn-action btn-edit">
+
+                        Select
+                    </button>
+                </a>
+                <a href="{{url_for('pending' , apple_id = app.id)}}">
+                    <button class="btn-action btn-edit">
+
+                        Pending
+                    </button>
+                </a>
+                <a href="{{url_for('reject' , apple_id = app.id)}}">
+                    <button class="btn-action btn-edit">
+
+                        Reject
+                    </button>
+                </a>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock %}

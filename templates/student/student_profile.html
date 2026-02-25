@@ -8,10 +8,22 @@
     }
 </style>
 {% endblock %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<ul class="flashes">
+    {% for category, message in messages %}
+    <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+
+
+
 {% block content %}
 
 
-<!-- Main Container -->
 <div class="main-container">
 
     <!-- Page Header -->
@@ -20,21 +32,17 @@
         <p>Manage your personal information and preferences</p>
     </div>
 
-    <!-- Success Message -->
-    <div class="success-message" id="successMessage">
-        <i class="bi bi-check-circle-fill" style="font-size: 1.3rem;"></i>
-        <span>Profile updated successfully!</span>
-    </div>
 
-    <!-- Profile Container -->
+
+
+
     <div class="profile-container">
 
-        <!-- Left Sidebar -->
         <div class="profile-sidebar">
             <div class="profile-picture-container">
                 <div class="profile-picture">
                     add
-                    <!-- <img src="profile.jpg" alt="Profile"> -->
+
                 </div>
                 <label for="profilePicture" class="change-photo-btn">
                     <i class="bi bi-camera"></i>
@@ -42,10 +50,10 @@
                 <input type="file" id="profilePicture" style="display: none;" accept="image/*">
             </div>
 
-            <h3 style="margin-bottom: 5px; color: #2d3436;">Rahul Kumar</h3>
-            <p style="color: #636e72; font-size: 0.9rem;">CS2021089</p>
+            <h3 style="margin-bottom: 5px; color: #2d3436;">{{student.name}} </h3>
 
-            <!-- Profile Completion -->
+
+
             <div class="profile-completion">
                 <div class="completion-text">Profile Completion</div>
                 <div class="completion-percentage">85%</div>
@@ -77,29 +85,26 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label class="form-label required">Full Name</label>
-                        <input type="text" class="form-control" value="Rahul Kumar" placeholder="Enter your full name">
+                        <input type="text" class="form-control" value="{{student.name}}"
+                            placeholder="Enter your full name">
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label class="form-label required">Email </label>
+                        <input type="email" class="form-control" value="{{user.email}}" placeholder="Enter email">
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label required">Roll Number</label>
-                        <input type="text" class="form-control" value="CS2021089" placeholder="Enter roll number"
-                            readonly>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label required">Email Address</label>
-                        <input type="email" class="form-control" value="rahul.kumar@example.com"
-                            placeholder="Enter email">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label required">Phone Number</label>
-                        <input type="tel" class="form-control" value="+91 98765 43210" placeholder="Enter phone number">
+                        <label class="form-label required">Username</label>
+                        <input type="text" class="form-control" value="{{user.username}}"
+                            placeholder="Enter phone number">
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Date of Birth</label>
-                        <input type="date" class="form-control" value="2003-05-15">
+                        <input type="date" class="form-control" value="enter DOB">
                     </div>
 
                     <div class="form-group">
@@ -111,11 +116,15 @@
                             <option value="other">Other</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label class="form-label">Resume</label>
+                        <input type="file" class="form-control" value="Upload your resume">
+                    </div>
                 </div>
             </div>
 
 
-            <!-- Social Links -->
+
             <div class="form-section">
                 <h2 class="section-title">
                     <i class="bi bi-link-45deg"></i>
@@ -147,10 +156,10 @@
 
             <!-- Action Buttons -->
             <div class="form-actions">
-                <button type="button" class="btn btn-primary" onclick="saveProfile()">
+                <button type="button" class="btn btn-primary">
                     <i class="bi bi-check-circle"></i> Save Changes
                 </button>
-                <button type="button" class="btn btn-secondary" onclick="window.location.href='student_dashboard.html'">
+                <button type="button" class="btn btn-secondary">
                     <i class="bi bi-x-circle"></i> Cancel
                 </button>
             </div>

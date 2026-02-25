@@ -9,8 +9,8 @@
 
 
     .page-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
+        background-color: white;
+        color: black;
         padding: 40px;
         border-radius: 20px;
         margin-bottom: 30px;
@@ -29,127 +29,11 @@
         margin: 0;
     }
 
-    /* Filter Bar */
-    .filter-bar {
-        background: white;
-        padding: 25px;
-        border-radius: 16px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        margin-bottom: 30px;
+    a {
+        text-decoration: none;
     }
 
-    .filter-row {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 15px;
-        align-items: end;
-    }
 
-    .filter-group label {
-        display: block;
-        font-weight: 600;
-        font-size: 0.9rem;
-        color: #2d3436;
-        margin-bottom: 8px;
-    }
-
-    .filter-control {
-        width: 100%;
-        padding: 12px 15px;
-        border: 2px solid #e9ecef;
-        border-radius: 10px;
-        font-size: 0.95rem;
-        transition: all 0.3s ease;
-    }
-
-    .filter-control:focus {
-        outline: none;
-        border-color: #667eea;
-        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-    }
-
-    .btn-filter {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 12px 30px;
-        border-radius: 10px;
-        border: none;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-    }
-
-    .btn-filter:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-    }
-
-    .btn-clear {
-        background: white;
-        color: #636e72;
-        padding: 12px 30px;
-        border-radius: 10px;
-        border: 2px solid #e9ecef;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .btn-clear:hover {
-        border-color: #667eea;
-        color: #667eea;
-    }
-
-    /* Results Info */
-    .results-info {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 25px;
-        padding: 0 5px;
-    }
-
-    .results-count {
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: #2d3436;
-    }
-
-    .results-count span {
-        color: #667eea;
-    }
-
-    .view-toggle {
-        display: flex;
-        gap: 10px;
-    }
-
-    .view-btn {
-        padding: 8px 16px;
-        border: 2px solid #e9ecef;
-        background: white;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-weight: 500;
-        color: #636e72;
-    }
-
-    .view-btn.active,
-    .view-btn:hover {
-        background: #667eea;
-        color: white;
-        border-color: #667eea;
-    }
-
-    /* Drive Cards - Grid View */
     .drives-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
@@ -174,7 +58,7 @@
         left: 0;
         width: 5px;
         height: 100%;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background-color: blue;
     }
 
     .drive-card:hover {
@@ -302,9 +186,9 @@
 
     .btn-apply {
         flex: 1;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background-color: blue;
         color: white;
-        padding: 12px 20px;
+        padding: 5px 20px;
         border-radius: 10px;
         border: none;
         font-weight: 600;
@@ -480,6 +364,8 @@
 {% endblock %}
 
 
+
+
 {% block content %}
 
 <!-- Main Container -->
@@ -488,130 +374,65 @@
     <!-- Page Header -->
     <div class="page-header">
         <h1><i class="bi bi-briefcase-fill"></i> Placement Drives</h1>
-        <p>Explore and apply for the latest job opportunities from top companies</p>
-    </div>
-
-    <!-- Filter Bar -->
-    <div class="filter-bar">
-        <div class="filter-row">
-            <div class="filter-group">
-                <label>Search</label>
-                <input type="text" class="filter-control" placeholder="Job title, company...">
-            </div>
-
-            <div class="filter-group">
-                <label>Location</label>
-                <select class="filter-control">
-                    <option value="">All Locations</option>
-                    <option value="bangalore">Bangalore</option>
-                    <option value="hyderabad">Hyderabad</option>
-                    <option value="pune">Pune</option>
-                    <option value="mumbai">Mumbai</option>
-                    <option value="delhi">Delhi NCR</option>
-                </select>
-            </div>
-
-            <div class="filter-group">
-                <label>Package Range</label>
-                <select class="filter-control">
-                    <option value="">All Packages</option>
-                    <option value="0-10">0-10 LPA</option>
-                    <option value="10-15">10-15 LPA</option>
-                    <option value="15-20">15-20 LPA</option>
-                    <option value="20+">20+ LPA</option>
-                </select>
-            </div>
-
-            <div class="filter-group">
-                <label>Sort By</label>
-                <select class="filter-control">
-                    <option value="recent">Most Recent</option>
-                    <option value="deadline">Deadline</option>
-                    <option value="package">Package (High to Low)</option>
-                    <option value="applicants">Most Applied</option>
-                </select>
-            </div>
-
-            <div class="filter-group">
-                <label>&nbsp;</label>
-                <button class="btn-filter">
-                    <i class="bi bi-search"></i> Search
-                </button>
-            </div>
-
-            <div class="filter-group">
-                <label>&nbsp;</label>
-                <button class="btn-clear">
-                    <i class="bi bi-x-circle"></i> Clear
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Results Info -->
-    <div class="results-info">
-        <div class="results-count">
-            Showing <span>24</span> placement drives
-        </div>
 
     </div>
 
-    <!-- Drives Grid View -->
+
+
+
+
     <div class="drives-grid" id="gridView">
 
-        <!-- Drive Card 1 -->
+        {% for d in drive %}
         <div class="drive-card">
             <div class="drive-header">
                 <div>
-                    <div class="drive-title">Senior Software Engineer</div>
+                    <div class="drive-title">{{d.job_title}}</div>
                     <div class="company-name">
                         <i class="bi bi-building"></i>
-                        Tech Solutions Inc.
+                        {{d.company.company_name}}
                     </div>
                 </div>
                 <span class="drive-badge badge-new">New</span>
-                <span class="drive-badge badge-urgent">1 Day Left</span>
-                <span class="drive-badge badge-urgent">2 Days Left</span>
+
             </div>
 
             <p class="drive-description">
-                We are looking for experienced software engineers to join our growing team. You will work on
-                cutting-edge technologies and innovative projects.
+                {{d.description}}
             </p>
 
             <div class="drive-meta">
 
                 <div class="meta-item">
                     <i class="bi bi-calendar-check"></i>
-                    <span>Deadline: 28 Feb</span>
+                    <span>Deadline: {{d.deadline}}</span>
                 </div>
-                <div class="meta-item">
-                    <i class="bi bi-people-fill"></i>
-                    <span>45 Applied</span>
-                </div>
+
             </div>
             <div class="drive-tags">
-                <p style="font-size: 12px;">Eligibility : </p><span class="tag">Python</span>
+                <p style="font-size: 12px;">Eligibility : </p><span class="tag">{{d.eligibility}}</span>
             </div>
 
 
             <div class="drive-footer">
-                <button class="btn-apply">
-                    <i class="bi bi-send-fill"></i>
-                    Apply Now
-                </button>
-                <button class="btn-details">
-                    <i class="bi bi-info-circle"></i>
-                </button>
+                <a class="btn-apply" href="{{url_for('student_apply',drive_id=d.id)}}">
+                    <button class="btn-apply">
+                        <i class="bi bi-send-fill"></i>
+                        Apply Now
+                    </button>
+                </a>
+
             </div>
         </div>
-
-
-
-
-
+        {% endfor %}
     </div>
-
 </div>
+
+
+
+
+
+
+
 
 {% endblock %}

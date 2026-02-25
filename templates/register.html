@@ -5,9 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registraion page</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .main {
+            margin-left: 50px;
+            margin-top: 50px;
+            margin-bottom: 25px;
+        }
+
+        .det {
+            margin-top: 25px;
+            margin-left: 50px;
+            margin-bottom: 25px;
+        }
+    </style>
 </head>
 
 <body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class=flashes>
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
 
     <div class="register_as">
         <button type="button" onclick="toggleForms()">Student</button>
@@ -17,26 +43,30 @@
         <h2>Company Registraion Form
         </h2>
 
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email" required>
+        <div class="main">
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required>
 
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" required>
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required>
 
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required>
+        </div>
         <hr>
-        <label for="name">Company Name :</label>
-        <input type="text" name="name" id="name" placeholder="Company Name" required>
-        <br>
-        <label for="name">Hr Contact :</label>
-        <input type="text" name="hr" id="hr" placeholder="Hr Contact" required>
-        <br>
-        <label for="name">Website :</label>
-        <input type="text" name="website" id="website" placeholder="Website" required>
+        <div class="det">
+            <label for="name">Company Name :</label>
+            <input type="text" name="name" id="name" placeholder="Company Name" required>
+
+            <label for="name">Hr Contact :</label>
+            <input type="text" name="hr" id="hr" placeholder="Hr Contact" required>
+
+            <label for="name">Website :</label>
+            <input type="text" name="website" id="website" placeholder="Website" required>
+        </div>
 
         <br>
-        <button type="submit">Register</button>
+        <button style="margin-left: 100px;" type="submit">Register</button>
 
     </form>
 
@@ -44,25 +74,29 @@
         <h2>Student Registraion form</h2>
 
 
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email" required>
+        <div class="main">
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required>
 
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" required>
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required>
 
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required>
+        </div>
         <hr>
-        <label for="name">Student Name :</label>
-        <input type="text" name="name" id="name" placeholder="Student Name" required>
-        <br>
-        <label for="name">Branch :</label>
-        <input type="text" name="branch" id="branch" placeholder="branch" required><br>
-        <label for="name">cgpa :</label>
-        <input type="float" name="cgpa" id="cgpa" placeholder="Cgpa..." required>
-        <br>
-        <label for="name">Resume Path :</label>
-        <input type="text" name="resume_path" id="resume_path" placeholder="Resume..." required>
+        <div class="det">
+            <label for="name">Student Name :</label>
+            <input type="text" name="name" id="name" placeholder="Student Name" required>
+
+            <label for="name">Branch :</label>
+            <input type="text" name="branch" id="branch" placeholder="branch" required>
+            <label for="name">cgpa :</label>
+            <input type="float" name="cgpa" id="cgpa" placeholder="Cgpa..." required>
+
+            <label for="name">Resume Path :</label>
+            <input type="text" name="resume_path" id="resume_path" placeholder="Resume..." required>
+        </div>
         <br>
         <button type="submit">Register</button>
 

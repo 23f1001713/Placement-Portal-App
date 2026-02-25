@@ -17,13 +17,13 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f7fa;
+            background: aliceblue;
             color: #333;
         }
 
         /* Top Navigation Bar */
         .top-navbar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-color: #8100D1;
             color: white;
             padding: 15px 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -75,64 +75,15 @@
             gap: 8px;
         }
 
-
-
-        .user-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .notification-bell {
-            position: relative;
-            font-size: 1.4rem;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .notification-bell:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .notification-count {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: #ff4757;
-            color: white;
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 10px;
-            font-weight: bold;
-        }
-
-        .user-avatar {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: white;
-            color: #667eea;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.1rem;
-            cursor: pointer;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-        }
-
-        /* Main Container */
         .main-container {
             max-width: 1200px;
             margin: 30px auto;
             padding: 0 30px;
         }
 
-        /* Page Header */
+
         .page-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-color: #9b5cc2;
             color: white;
             padding: 30px 40px;
             border-radius: 15px;
@@ -151,14 +102,13 @@
             opacity: 0.9;
         }
 
-        /* Profile Container */
+
         .profile-container {
             display: grid;
             grid-template-columns: 350px 1fr;
             gap: 30px;
         }
 
-        /* Left Sidebar - Profile Picture */
         .profile-sidebar {
             background: white;
             border-radius: 12px;
@@ -279,7 +229,7 @@
             margin-bottom: 5px;
         }
 
-        /* Main Content - Profile Form */
+
         .profile-content {
             background: white;
             border-radius: 12px;
@@ -364,113 +314,6 @@
             margin-top: 5px;
         }
 
-        /* Skills Tags */
-        .skills-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .skill-tag {
-            background: #e8f4ff;
-            color: #0984e3;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .skill-tag i {
-            cursor: pointer;
-            font-size: 0.7rem;
-        }
-
-        .skill-tag i:hover {
-            color: #d63031;
-        }
-
-        .add-skill-input {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        /* Resume Upload */
-        .resume-upload {
-            border: 2px dashed #e0e0e0;
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            background: #f8f9fa;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .resume-upload:hover {
-            border-color: #667eea;
-            background: #f0f4ff;
-        }
-
-        .resume-upload i {
-            font-size: 3rem;
-            color: #667eea;
-            margin-bottom: 15px;
-        }
-
-        .resume-upload-text {
-            font-size: 0.95rem;
-            color: #636e72;
-        }
-
-        .current-resume {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 15px;
-        }
-
-        .resume-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .resume-icon {
-            width: 45px;
-            height: 45px;
-            background: #667eea;
-            color: white;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-        }
-
-        .resume-details {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .resume-name {
-            font-weight: 600;
-            color: #2d3436;
-            font-size: 0.9rem;
-        }
-
-        .resume-size {
-            font-size: 0.8rem;
-            color: #636e72;
-        }
-
-        /* Action Buttons */
         .form-actions {
             display: flex;
             gap: 15px;
@@ -515,15 +358,15 @@
             color: #667eea;
         }
 
-        /* Mobile Menu Toggle */
-        .mobile-menu-toggle {
+
+        /* .mobile-menu-toggle {
             display: none;
             background: none;
             border: none;
             color: white;
             font-size: 1.5rem;
             cursor: pointer;
-        }
+        } */
 
         /* Responsive Design */
         @media (max-width: 992px) {
@@ -585,7 +428,7 @@
             }
         }
 
-        /* Success Message */
+
         .success-message {
             background: #00b894;
             color: white;
@@ -614,9 +457,7 @@
                 Placement Portal
             </a>
 
-            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-                <i class="bi bi-list"></i>
-            </button>
+
 
             <ul class="navbar-menu" id="navbarMenu">
                 <li><a href="{{url_for('student')}}" class="s"><i class="bi bi-house-door"></i> Dashboard</a></li>
@@ -625,10 +466,20 @@
                         Applications</a></li>
                 <li><a href="{{url_for('student_profile')}}" class="s_p"><i class="bi bi-person"></i> Profile</a>
                 </li>
+                <li><a href="{{url_for('logout')}}" class="s_p"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                </li>
             </ul>
         </div>
     </nav>
-
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class=flashes>
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
     {% block content %} {% endblock %}
 </body>
 

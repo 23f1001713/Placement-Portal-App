@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dive details</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <a href="{{url_for('admin_drives')}}">
+        <button>Go Back</button>
+    </a>
+    <h2>Job Title </h2>
+    <h4>{{d.job_title}}</h4>
+    <h2>Description </h2>
+    <h4>{{d.description}}</h4>
+    <h2> Eligibility</h2>
+    <h4>{{d.eligibility}}</h4>
+    <h2>Deadline </h2>
+    <h4>{{d.deadline}}</h4>
+    <h2>status </h2>
+    <h4>{{d.status}}</h4>
+    <h1>Company Details</h1>
+
+    <h2>Company Name </h2>
+    <h4>{{d.company.company_name}}</h4>
+    <h2>Hr Contact </h2>
+    <h4>{{d.company.hr_contact}}</h4>
+    <h2>Website </h2>
+    <h4>{{d.company.website}}</h4>
+    <h2>Status </h2>
+    <h4>{{d.company.approval_status}}</h4>
+
+
+
+</body>
+
+</html>

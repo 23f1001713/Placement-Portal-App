@@ -36,27 +36,22 @@
 {% endblock %}
 {% block content %}
 
-<div class="top-nav">
-    <div class="search-bar">
-        <input type="text" placeholder="Search drives, companies...">
-        <i class="bi bi-search"></i>
-    </div>
-    <div class="user-info">
-        <div class="notification-icon">
-            <i class="bi bi-bell"></i>
-            <span class="notification-badge">1</span>
-        </div>
-        <div class="user-avatar">AD</div>
-        <div>
-            <div style="font-weight: 600; font-size: 0.9rem;">Admin User</div>
-            <div style="font-size: 0.8rem; color: #999;">administrator</div>
-        </div>
-    </div>
-</div>
+
+
+
 <div class="page-header">
     <h1><i class="bi bi-building"></i> Company Management</h1>
-    <p>Monitor and manage all companies across placement drives</p>
+
+
 </div>
+<div class="top-nav">
+    <div class="search-bar">
+        <input type="text" placeholder="Search drives, companies..." name="search">
+        <i class="bi bi-search"></i>
+    </div>
+
+</div>
+
 
 <div class="stats-row">
     <div class="stat-card hov">
@@ -75,134 +70,98 @@
     </div>
 </div>
 
-<div class="filters-section">
-    <div class="filter-header">
-        <h5><i class="bi bi-funnel"></i> Filters</h5>
-        <div style="display: flex; gap: 10px;">
-            <button class="btn-export">
-                <i class="bi bi-download"></i> Export Data
-            </button>
-            <button class="btn-outline" onclick="clearAllFilters()">
-                <i class="bi bi-x-circle"></i> Clear All
-            </button>
-        </div>
-    </div>
-
-    <div class="filter-grid">
-        <div class="form-group">
-            <label>Search</label>
-            <input type="text" class="form-control" placeholder="Student name, roll number...">
-        </div>
-
-        <div class="form-group">
-            <label>Status</label>
-            <select class="form-control">
-                <option>All Status</option>
-                <option>Approved</option>
-                <option>Pending</option>
-                <option>Blocked</option>
-            </select>
-        </div>
 
 
 
 
 
-        <div class="form-group">
-            <label>Company</label>
-            <select class="form-control">
-                <option>All Companies</option>
-                <option>Tech Solutions Inc.</option>
-                <option>Digital Innovations</option>
-                <option>Global Enterprises</option>
-            </select>
-        </div>
 
-        <div class="form-group">
-            <label>&nbsp;</label>
-            <button class="btn btn-primary" style="width: 100%;">
-                <i class="bi bi-search"></i> Apply Filters
-            </button>
-        </div>
-    </div>
-</div>
+<!-- Table View -->
+<div id="tableView">
+    <table class="applications-table">
+        <thead>
+            <tr>
+                <th style="width: 40px;">
+                    <input type="checkbox" class="table-checkbox">
+                </th>
+                <th>Company ID</th>
+                <th>Company Name</th>
+                <th>Total Drives</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in com_det %}
+            <tr>
 
-<div class="table-container">
-    <div class="table-header">
-        <h5>All Applications</h5>
+                <td>
+                    <input type="checkbox" class="table-checkbox app-checkbox" onchange="updateBulkActions()">
+                </td>
+                <td><strong>{{c.id}}</strong></td>
+                <td>
+                    <div class="student-info-cell">
 
-    </div>
-
-    <!-- Table View -->
-    <div id="tableView">
-        <table class="applications-table">
-            <thead>
-                <tr>
-                    <th style="width: 40px;">
-                        <input type="checkbox" class="table-checkbox">
-                    </th>
-                    <th>Company ID</th>
-                    <th>Company Name</th>
-                    <th>Total Drives</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    {% for c in com_det %}
-                    <td>
-                        <input type="checkbox" class="table-checkbox app-checkbox" onchange="updateBulkActions()">
-                    </td>
-                    <td><strong>{{c.user_id}}</strong></td>
-                    <td>
-                        <div class="student-info-cell">
-
-                            <div class="student-details">
-                                <div class="student-name">{{c.company_name}}</div>
-
-                            </div>
-                        </div>
-                    </td>
-
-                    <td>
-                        <div class="drive-info">
-                            {% set ns = namespace(count=0) %}
-
-                            {% for d in drive %}
-                            {% if d.company_id == c.id %}
-
-                            {% set ns.count = ns.count + 1 %}
-                            {% endif %}
-                            {% endfor %}
-                            <div class="drive-title-sm">{{ns.count}}</div>
+                        <div class="student-details">
+                            <div class="student-name">{{c.company_name}}</div>
 
                         </div>
-                    </td>
+                    </div>
+                </td>
 
-                    <td>{% if c.approval_status == 'APPROVED' %}
+                <td>
+                    <div class="drive-info">
+                        {% set ns = namespace(count=0) %}
 
-                        <span class="status-badge status-selected">Approved</span>
-                        {% elif c.approval_status == 'PENDING' %}
-                        <span class="status-badge status-applied">Pending</span>
-                        {% else %}
-                        <span class="status-badge status-shortlisted">Rejected</span>
+                        {% for d in drive %}
+                        {% if d.company_id == c.id %}
 
+                        {% set ns.count = ns.count + 1 %}
                         {% endif %}
+                        {% endfor %}
+                        <div class="drive-title-sm">{{ns.count}}</div>
 
-                    </td>
-                    <td>
-                        <div class="table-actions">
+                    </div>
+                </td>
+
+                <td>{% if c.approval_status == 'APPROVED' %}
+
+                    <span class="status-badge status-selected">Approved</span>
+                    {% elif c.approval_status == 'PENDING' %}
+                    <span style="background-color: #fc6372;
+                        color: white;" class="status-badge status-applied">Pending</span>
+                    {% else %}
+                    <span class="status-badge status-shortlisted">Rejected</span>
+
+                    {% endif %}
+
+                </td>
+                <td>
+                    <div class="table-actions">
+                        <a href="{{ url_for('Block_unblock', company_id=c.id) }}">
+                            {% if c.approval_status == 'PENDING' or c.approval_status == 'REJECTED' %}
+                            <button style="background-color: #28a745; color: white;" class="btn-sm btn-view">
+                                <i class="bi bi-unlock"></i> Unblock
+                            </button>
+                            {% else %}
+                            <button style="background-color: #dc3545; color: white;" class="btn-sm btn-view">
+                                <i class="bi bi-slash-circle"></i> Block
+                            </button>
+                            {% endif %}
+                        </a>
+                        <a href="{{url_for('company_details', company_id = c.id)}}">
                             <button class="btn-sm btn-view">
                                 <i class="bi bi-eye"></i> View
                             </button>
-                        </div>
-                    </td>
-                    {% endfor %}
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                        </a>
+                    </div>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 </div>
 
 

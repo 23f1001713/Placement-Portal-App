@@ -54,7 +54,7 @@ class Drive(db.Model,UserMixin):
     eligibility = db.Column(db.String(100), nullable = False)
     deadline = db.Column(db.DateTime, nullable = False)
     status = db.Column(db.String(20), nullable = False,default ='APPROVED') #APPROVED,PENDING,CLOSED
-
+    company = db.relationship('Company' , backref = 'companies')
 
 class Application(db.Model,UserMixin):
     __tablename__ = 'applications'
@@ -63,9 +63,11 @@ class Application(db.Model,UserMixin):
     drive_id = db.Column(db.Integer,db.ForeignKey('placement_drives.id') , nullable = False)
     applied_at = db.Column(db.DateTime,default = datetime.utcnow)
     status = db.Column(db.String(30), nullable = False,default = 'PENDING')#PENDING , SHORTLISTED,SELECTED , REJECTED
-
+    drive = db.relationship('Drive', backref='applications')
+    student = db.relationship('Student' , backref = 'students')
     __table_args__ = (
     db.UniqueConstraint('student_id', 'drive_id', name='unique_student_drive'),
+
 )
 
 

@@ -8,8 +8,8 @@
     }
 
     .page-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
+        background-color: white;
+        color: black;
         padding: 40px;
         border-radius: 20px;
         margin-bottom: 30px;
@@ -28,7 +28,7 @@
         margin: 0;
     }
 
-    /* Stats Cards */
+
     .stats-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -43,7 +43,7 @@
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         text-align: center;
         transition: all 0.3s ease;
-        border-top: 4px solid #667eea;
+        border-top: 4px solid blue;
     }
 
     .stat-card:hover {
@@ -51,21 +51,7 @@
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     }
 
-    .stat-card.applied {
-        border-top-color: #74b9ff;
-    }
 
-    .stat-card.shortlisted {
-        border-top-color: #fdcb6e;
-    }
-
-    .stat-card.selected {
-        border-top-color: #00b894;
-    }
-
-    .stat-card.rejected {
-        border-top-color: #d63031;
-    }
 
     .stat-number {
         font-size: 2.5rem;
@@ -82,56 +68,6 @@
         font-weight: 600;
     }
 
-    /* Filter Tabs */
-    .filter-tabs {
-        background: white;
-        border-radius: 16px;
-        padding: 15px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        margin-bottom: 30px;
-        display: flex;
-        gap: 10px;
-        overflow-x: auto;
-    }
-
-    .filter-tab {
-        padding: 12px 24px;
-        border-radius: 25px;
-        border: 2px solid #e9ecef;
-        background: white;
-        color: #636e72;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        white-space: nowrap;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .filter-tab:hover {
-        border-color: #667eea;
-        color: #667eea;
-    }
-
-    .filter-tab.active {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border-color: #667eea;
-    }
-
-    .filter-tab .count {
-        background: rgba(0, 0, 0, 0.1);
-        padding: 2px 8px;
-        border-radius: 10px;
-        font-size: 0.85rem;
-    }
-
-    .filter-tab.active .count {
-        background: rgba(255, 255, 255, 0.3);
-    }
-
-    /* Application Cards */
     .applications-container {
         display: flex;
         flex-direction: column;
@@ -144,7 +80,7 @@
         padding: 28px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         transition: all 0.3s ease;
-        border-left: 5px solid #667eea;
+        border-left: 5px solid blue;
     }
 
     .application-card:hover {
@@ -504,6 +440,17 @@
 </style>
 {% endblock %}
 
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<ul class="flashes">
+    {% for category, message in messages %}
+    <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+
 {% block content %}
 
 
@@ -513,33 +460,29 @@
     <!-- Page Header -->
     <div class="page-header">
         <h1><i class="bi bi-file-earmark-text-fill"></i> My Applications</h1>
-        <p>Track and manage all your job applications in one place</p>
     </div>
 
     <!-- Stats Cards -->
     <div class="stats-grid">
         <div class="stat-card">
-            <div class="stat-number">8</div>
+            <div class="stat-number">{{t_a}}</div>
             <div class="stat-label">Total Applied</div>
         </div>
 
-        <div class="stat-card applied">
-            <div class="stat-number">3</div>
-            <div class="stat-label">In Progress</div>
-        </div>
 
-        <div class="stat-card shortlisted">
-            <div class="stat-number">3</div>
+
+        <div class="stat-card ">
+            <div class="stat-number">{{t_sh}}</div>
             <div class="stat-label">Shortlisted</div>
         </div>
 
-        <div class="stat-card selected">
-            <div class="stat-number">1</div>
+        <div class="stat-card ">
+            <div class="stat-number">{{t_se}}</div>
             <div class="stat-label">Selected</div>
         </div>
 
-        <div class="stat-card rejected">
-            <div class="stat-number">1</div>
+        <div class="stat-card ">
+            <div class="stat-number">{{t_r}}</div>
             <div class="stat-label">Not Selected</div>
         </div>
     </div>
@@ -549,363 +492,23 @@
     <!-- Applications Container -->
     <div class="applications-container">
 
-        <!-- Application Card 1 - Selected -->
+        {% for d in appli %}
         <div class="application-card">
             <div class="app-card-header">
                 <div class="app-info">
-                    <div class="app-id">#APP-1235</div>
-                    <div class="app-title">Data Analyst</div>
-                    <div class="app-company">
-                        <i class="bi bi-building"></i>
-                        Analytics Corp
-                    </div>
+                    <div class="app-id">#{{d.id}}</div>
+                    <div class="app-title"> {{d.drive.job_title}}</div>
+
                 </div>
+                {% if d.status == 'SELECTED' %}
                 <span class="status-badge status-selected">Selected</span>
-            </div>
-
-            <div class="app-meta">
-                <div class="meta-box">
-                    <div class="meta-label">Applied On</div>
-                    <div class="meta-value">
-                        <i class="bi bi-calendar3"></i>
-                        10 Feb 2026
-                    </div>
-                </div>
-                <div class="meta-box">
-                    <div class="meta-label">Location</div>
-                    <div class="meta-value">
-                        <i class="bi bi-geo-alt"></i>
-                        Bangalore
-                    </div>
-                </div>
-                <div class="meta-box">
-                    <div class="meta-label">Package</div>
-                    <div class="meta-value">
-                        <i class="bi bi-currency-rupee"></i>
-                        10-12 LPA
-                    </div>
-                </div>
-                <div class="meta-box">
-                    <div class="meta-label">Last Updated</div>
-                    <div class="meta-value">
-                        <i class="bi bi-clock"></i>
-                        18 Feb 2026
-                    </div>
-                </div>
-            </div>
-
-            <div class="application-timeline">
-                <div class="timeline-header">
-                    <i class="bi bi-clock-history"></i>
-                    Application Timeline
-                </div>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">10 Feb 2026, 10:30 AM</div>
-                            <div class="timeline-title">Application Submitted</div>
-                            <div class="timeline-desc">Your application was successfully submitted</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">12 Feb 2026, 02:15 PM</div>
-                            <div class="timeline-title">Application Under Review</div>
-                            <div class="timeline-desc">Your application is being reviewed by the company</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">15 Feb 2026, 11:00 AM</div>
-                            <div class="timeline-title">Shortlisted for Interview</div>
-                            <div class="timeline-desc">Congratulations! You've been shortlisted</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item active">
-                        <div class="timeline-content">
-                            <div class="timeline-date">18 Feb 2026, 04:30 PM</div>
-                            <div class="timeline-title">Selected!</div>
-                            <div class="timeline-desc">🎉 Congratulations! You have been selected for this position
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="app-actions">
-                <button class="btn-action btn-primary">
-                    <i class="bi bi-download"></i>
-                    Download Offer Letter
-                </button>
-                <button class="btn-action btn-secondary">
-                    <i class="bi bi-envelope"></i>
-                    Contact HR
-                </button>
-            </div>
-        </div>
-
-        <!-- Application Card 2 - Shortlisted -->
-        <div class="application-card">
-            <div class="app-card-header">
-                <div class="app-info">
-                    <div class="app-id">#APP-1234</div>
-                    <div class="app-title">Senior Software Engineer</div>
-                    <div class="app-company">
-                        <i class="bi bi-building"></i>
-                        Tech Solutions Inc.
-                    </div>
-                </div>
+                {% elif d.status == 'SHORTLISTED' %}
                 <span class="status-badge status-shortlisted">Shortlisted</span>
-            </div>
-
-            <div class="app-meta">
-                <div class="meta-box">
-                    <div class="meta-label">Applied On</div>
-                    <div class="meta-value">
-                        <i class="bi bi-calendar3"></i>
-                        12 Feb 2026
-                    </div>
-                </div>
-                <div class="meta-box">
-                    <div class="meta-label">Location</div>
-                    <div class="meta-value">
-                        <i class="bi bi-geo-alt"></i>
-                        Hyderabad
-                    </div>
-                </div>
-                <div class="meta-box">
-                    <div class="meta-label">Package</div>
-                    <div class="meta-value">
-                        <i class="bi bi-currency-rupee"></i>
-                        12-15 LPA
-                    </div>
-                </div>
-                <div class="meta-box">
-                    <div class="meta-label">Interview Date</div>
-                    <div class="meta-value">
-                        <i class="bi bi-calendar-event"></i>
-                        22 Feb 2026
-                    </div>
-                </div>
-            </div>
-
-            <div class="application-timeline">
-                <div class="timeline-header">
-                    <i class="bi bi-clock-history"></i>
-                    Application Timeline
-                </div>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">12 Feb 2026, 09:15 AM</div>
-                            <div class="timeline-title">Application Submitted</div>
-                            <div class="timeline-desc">Your application was successfully submitted</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">14 Feb 2026, 03:30 PM</div>
-                            <div class="timeline-title">Application Under Review</div>
-                            <div class="timeline-desc">Your profile is being reviewed</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item active">
-                        <div class="timeline-content">
-                            <div class="timeline-date">17 Feb 2026, 10:45 AM</div>
-                            <div class="timeline-title">Shortlisted for Interview</div>
-                            <div class="timeline-desc">Interview scheduled for 22 Feb 2026 at 10:00 AM</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="app-actions">
-                <button class="btn-action btn-primary">
-                    <i class="bi bi-calendar-check"></i>
-                    View Interview Details
-                </button>
-                <button class="btn-action btn-secondary">
-                    <i class="bi bi-info-circle"></i>
-                    View Job Details
-                </button>
-            </div>
-        </div>
-
-        <!-- Application Card 3 - Shortlisted -->
-        <div class="application-card">
-            <div class="app-card-header">
-                <div class="app-info">
-                    <div class="app-id">#APP-1236</div>
-                    <div class="app-title">Backend Developer</div>
-                    <div class="app-company">
-                        <i class="bi bi-building"></i>
-                        Cloud Systems
-                    </div>
-                </div>
-                <span class="status-badge status-shortlisted">Shortlisted</span>
-            </div>
-
-            <div class="app-meta">
-                <div class="meta-box">
-                    <div class="meta-label">Applied On</div>
-                    <div class="meta-value">
-                        <i class="bi bi-calendar3"></i>
-                        08 Feb 2026
-                    </div>
-                </div>
-                <div class="meta-box">
-                    <div class="meta-label">Location</div>
-                    <div class="meta-value">
-                        <i class="bi bi-geo-alt"></i>
-                        Delhi NCR
-                    </div>
-                </div>
-                <div class="meta-box">
-                    <div class="meta-label">Package</div>
-                    <div class="meta-value">
-                        <i class="bi bi-currency-rupee"></i>
-                        14-17 LPA
-                    </div>
-                </div>
-                <div class="meta-box">
-                    <div class="meta-label">Last Updated</div>
-                    <div class="meta-value">
-                        <i class="bi bi-clock"></i>
-                        16 Feb 2026
-                    </div>
-                </div>
-            </div>
-
-            <div class="application-timeline">
-                <div class="timeline-header">
-                    <i class="bi bi-clock-history"></i>
-                    Application Timeline
-                </div>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">08 Feb 2026, 11:20 AM</div>
-                            <div class="timeline-title">Application Submitted</div>
-                            <div class="timeline-desc">Your application was successfully submitted</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">11 Feb 2026, 02:00 PM</div>
-                            <div class="timeline-title">Aptitude Test Cleared</div>
-                            <div class="timeline-desc">You have successfully cleared the aptitude round</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item active">
-                        <div class="timeline-content">
-                            <div class="timeline-date">16 Feb 2026, 09:30 AM</div>
-                            <div class="timeline-title">Technical Round Scheduled</div>
-                            <div class="timeline-desc">Preparing for technical interview round</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="app-actions">
-                <button class="btn-action btn-primary">
-                    <i class="bi bi-calendar-check"></i>
-                    Prepare for Interview
-                </button>
-                <button class="btn-action btn-secondary">
-                    <i class="bi bi-info-circle"></i>
-                    View Details
-                </button>
-            </div>
-        </div>
-
-        <!-- Application Card 4 - Applied -->
-        <div class="application-card">
-            <div class="app-card-header">
-                <div class="app-info">
-                    <div class="app-id">#APP-1237</div>
-                    <div class="app-title">Frontend Developer</div>
-                    <div class="app-company">
-                        <i class="bi bi-building"></i>
-                        Web Studios
-                    </div>
-                </div>
-                <span class="status-badge status-applied">In Progress</span>
-            </div>
-
-            <div class="app-meta">
-                <div class="meta-box">
-                    <div class="meta-label">Applied On</div>
-                    <div class="meta-value">
-                        <i class="bi bi-calendar3"></i>
-                        05 Feb 2026
-                    </div>
-                </div>
-                <div class="meta-box">
-                    <div class="meta-label">Location</div>
-                    <div class="meta-value">
-                        <i class="bi bi-geo-alt"></i>
-                        Pune
-                    </div>
-                </div>
-                <div class="meta-box">
-                    <div class="meta-label">Package</div>
-                    <div class="meta-value">
-                        <i class="bi bi-currency-rupee"></i>
-                        9-11 LPA
-                    </div>
-                </div>
-                <div class="meta-box">
-                    <div class="meta-label">Last Updated</div>
-                    <div class="meta-value">
-                        <i class="bi bi-clock"></i>
-                        13 Feb 2026
-                    </div>
-                </div>
-            </div>
-
-            <div class="application-timeline">
-                <div class="timeline-header">
-                    <i class="bi bi-clock-history"></i>
-                    Application Timeline
-                </div>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">05 Feb 2026, 03:45 PM</div>
-                            <div class="timeline-title">Application Submitted</div>
-                            <div class="timeline-desc">Your application was successfully submitted</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item active">
-                        <div class="timeline-content">
-                            <div class="timeline-date">13 Feb 2026, 11:15 AM</div>
-                            <div class="timeline-title">Under Review</div>
-                            <div class="timeline-desc">Your application is being reviewed by the recruitment team</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="app-actions">
-                <button class="btn-action btn-secondary">
-                    <i class="bi bi-info-circle"></i>
-                    View Job Details
-                </button>
-            </div>
-        </div>
-
-        <!-- Application Card 5 - Rejected -->
-        <div class="application-card">
-            <div class="app-card-header">
-                <div class="app-info">
-                    <div class="app-id">#APP-1238</div>
-                    <div class="app-title">DevOps Engineer</div>
-                    <div class="app-company">
-                        <i class="bi bi-building"></i>
-                        Infrastructure Inc.
-                    </div>
-                </div>
+                {% elif d.status == 'REJECTED' %}
                 <span class="status-badge status-rejected">Not Selected</span>
+                {% else %}
+                <span class="status-badge status-applied">In Progress</span>
+                {% endif %}
             </div>
 
             <div class="app-meta">
@@ -913,77 +516,21 @@
                     <div class="meta-label">Applied On</div>
                     <div class="meta-value">
                         <i class="bi bi-calendar3"></i>
-                        01 Feb 2026
+                        {{d.applied_at}}
                     </div>
                 </div>
-                <div class="meta-box">
-                    <div class="meta-label">Location</div>
-                    <div class="meta-value">
-                        <i class="bi bi-geo-alt"></i>
-                        Bangalore
-                    </div>
-                </div>
-                <div class="meta-box">
-                    <div class="meta-label">Package</div>
-                    <div class="meta-value">
-                        <i class="bi bi-currency-rupee"></i>
-                        13-16 LPA
-                    </div>
-                </div>
-                <div class="meta-box">
-                    <div class="meta-label">Last Updated</div>
-                    <div class="meta-value">
-                        <i class="bi bi-clock"></i>
-                        10 Feb 2026
-                    </div>
-                </div>
+
             </div>
 
-            <div class="application-timeline">
-                <div class="timeline-header">
-                    <i class="bi bi-clock-history"></i>
-                    Application Timeline
-                </div>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">01 Feb 2026, 10:00 AM</div>
-                            <div class="timeline-title">Application Submitted</div>
-                            <div class="timeline-desc">Your application was successfully submitted</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">05 Feb 2026, 02:30 PM</div>
-                            <div class="timeline-title">Aptitude Test Completed</div>
-                            <div class="timeline-desc">You completed the online assessment</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item active">
-                        <div class="timeline-content">
-                            <div class="timeline-date">10 Feb 2026, 04:00 PM</div>
-                            <div class="timeline-title">Application Closed</div>
-                            <div class="timeline-desc">Thank you for your interest. We've moved forward with other
-                                candidates.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="app-actions">
-                <button class="btn-action btn-primary">
-                    <i class="bi bi-search"></i>
-                    Browse Similar Jobs
-                </button>
-            </div>
+
         </div>
+        {% endfor %}
+
+
 
     </div>
-
 </div>
-
-
-
 
 
 
