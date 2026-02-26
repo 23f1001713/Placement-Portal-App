@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History of placements</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .d-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .drive-title-sm {
+            font-weight: 600;
+            color: #2d3436;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-applied {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .status-shortlisted {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .status-selected {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-rejected {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 30px;
+        }
+
+        .app-tab {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .app-tab thead {
+            background: #f8f9fa;
+        }
+
+        .app-tab th {
+            padding: 15px 20px;
+            text-align: left;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .app-tab tbody tr {
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+
+        .app-tab tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .app-tab td {
+            padding: 18px 20px;
+            font-size: 0.9rem;
+            color: #2d3436;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+
+        <div class="tableView">
+            <table class="app-tab">
+                <thead>
+                    <tr>
+
+                        <th>Application ID</th>
+                        <th>DriveID / Drive Name</th>
+                        <th>Applied Date</th>
+                        <th>Status</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for a in apple %}
+                    <tr>
+
+
+                        <td><strong>{{a.id}}</strong></td>
+
+
+                        <td>
+                            <div class="d-info">
+                                <div class="drive-title-sm">{{a.drive_id}}</div>
+                                <div class="drive-title-sm">{{a.drive.job_title}}</div>
+                            </div>
+                        </td>
+                        <td>{{a.applied_at}}</td>
+
+                        <td>
+                            {% if a.status == 'SHORTLISTED' %}
+                            <span class="status-badge status-shortlisted">Shortlisted</span>
+                            {% elif a.status == 'SELECTED' %}
+                            <span class="status-badge status-selected">Selected</span>
+                            {% elif a.status == 'REJECTED' %}
+                            <span class="status-badge status-rejected">Rejected</span>
+                            {% else %}
+                            <span class="status-badge status-applied">In Process</span>
+                            {% endif %}
+                        </td>
+
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

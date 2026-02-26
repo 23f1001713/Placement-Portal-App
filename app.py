@@ -225,6 +225,8 @@ def admin_student():
                            apple = apple
                            )
 
+
+
 @app.route('/block_unblock_student/<int:student_id>')
 @login_required
 def Block_unblock_student(student_id):
@@ -342,13 +344,15 @@ def close_drive(drive_id):
 
 
 
+@app.route('/admin/<int:student_id>/history')
 
+def history_ad(student_id):
 
-@app.route('/admin/report')
-@login_required
-def admin_reports():
-    return render_template('admin/admin_report.html')
+    
+    apple = Application.query.filter_by(student_id = student_id)
 
+    return render_template('student/student_history.html',
+                           apple = apple)
 
 
 
@@ -404,7 +408,7 @@ def student():
                            t_d = len(t_d) ,
                            applied = len(application),
                            s = student,
-                           apple = application[0],
+                           apple = application,
                            sh = len(short),
                            se = len(sele),
                            drive = drive)
@@ -485,9 +489,15 @@ def student_apply(drive_id):
 
 
 
+@app.route('/history')
 
+def history_st():
 
+    student = Student.query.filter_by(user_id = current_user.id).first_or_404()
+    apple = Application.query.filter_by(student_id = student.id)
 
+    return render_template('student/student_history.html',
+                           apple = apple)
 
 
 

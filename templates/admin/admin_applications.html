@@ -37,12 +37,12 @@
 {% block content %}
 
 
-<div class="page-header">
+<div class="header">
     <h1><i class="bi bi-file-earmark-text"></i> Applications Management</h1>
     <p>Monitor and manage all student applications across placement drives</p>
 </div>
-<div class="top-nav">
-    <div class="search-bar">
+<div class="nav">
+    <div class="search">
         <input type="text" placeholder="Search drives, companies...">
         <i class="bi bi-search"></i>
     </div>
@@ -51,24 +51,24 @@
 
 
 
-<div class="stats-row">
-    <div class="stat-card hov">
+<div class="stats">
+    <div class="stat hov">
         <div class="stat-number">{{t_a}}</div>
         <div class="stat-label">Total Applications</div>
     </div>
-    <div class="stat-card hov applied">
+    <div class="stat hov applied">
         <div class="stat-number">{{t_app}}</div>
         <div class="stat-label">Selected</div>
     </div>
-    <div class="stat-card hov shortlisted">
+    <div class="stat hov shortlisted">
         <div class="stat-number">{{t_s}}</div>
         <div class="stat-label">Shortlisted</div>
     </div>
-    <div class="stat-card hovr selected">
+    <div class="stat hovr selected">
         <div class="stat-number">{{t_p}}</div>
         <div class="stat-label">In Progress</div>
     </div>
-    <div class="stat-card hovr rejected">
+    <div class="stat hovr rejected">
         <div class="stat-number">{{t_r}}</div>
         <div class="stat-label">Rejected</div>
     </div>
@@ -76,7 +76,7 @@
 
 
 <div id="tableView">
-    <table class="applications-table">
+    <table class="app-tab">
         <thead>
             <tr>
 
@@ -96,9 +96,9 @@
 
                 <td><strong>{{a.id}}</strong></td>
                 <td>
-                    <div class="student-info-cell">
+                    <div class="s-cell">
 
-                        <div class="student-details">
+                        <div class="stud-deta">
                             <div class="student-name">{{a.student.name}}</div>
 
                         </div>
@@ -108,7 +108,7 @@
                     <span class="dept-badge">{{a.student.branch}}</span>
                 </td>
                 <td>
-                    <div class="drive-info">
+                    <div class="d-info">
                         <div class="drive-title-sm">{{a.drive_id}}</div>
                         <div class="drive-title-sm">{{a.drive.job_title}}</div>
                     </div>
@@ -127,10 +127,15 @@
                     {% endif %}
                 </td>
                 <td>
-                    <div class="table-actions">
+                    <div class="t-a">
                         <a href="{{url_for('student_detail' , apple_id = a.student_id)}}">
                             <button class="btn-sm btn-view">
-                                <i class="bi bi-eye"></i> View
+                                <i class="bi bi-eye"></i> View Details
+                            </button>
+                        </a>
+                        <a href="{{url_for('history_ad' , student_id = a.student_id)}}">
+                            <button class="btn-sm btn-view">
+                                <i class="bi bi-eye"></i> View History
                             </button>
                         </a>
                     </div>

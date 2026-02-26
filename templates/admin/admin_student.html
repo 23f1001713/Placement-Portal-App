@@ -37,13 +37,13 @@
 {% block content %}
 
 
-<div class="page-header">
+<div class="header">
     <h1><i class="bi bi-people"></i> Student Management</h1>
 
 
 </div>
-<div class="top-nav">
-    <div class="search-bar">
+<div class="nav">
+    <div class="search">
         <input type="text" placeholder="Search drives, companies...">
         <i class="bi bi-search"></i>
     </div>
@@ -54,16 +54,16 @@
 
 
 
-<div class="stats-row">
-    <div class="stat-card hov">
+<div class="stats ">
+    <div class="stat hov">
         <div class="stat-number">{{t_s}}</div>
         <div class="stat-label">Total Students</div>
     </div>
-    <div class="stat-card applied hov">
+    <div class="stat applied hov">
         <div class="stat-number">{{t_app}}</div>
         <div class="stat-label">Approved</div>
     </div>
-    <div class="stat-card shortlisted hovr">
+    <div class="stat shortlisted hovr">
         <div class="stat-number">{{t_b}}</div>
         <div class="stat-label">Blacklisted</div>
     </div>
@@ -75,7 +75,7 @@
 
 
 <div id="tableView">
-    <table class="applications-table">
+    <table class="app-tab">
         <thead>
             <tr>
 
@@ -93,21 +93,21 @@
 
                 <td><strong>{{s.id}}</strong></td>
                 <td>
-                    <div class="student-info-cell">
+                    <div class="s-cell">
 
-                        <div class="student-details">
-                            <div class="student-name">{{s.name}}</div>
+                        <div class="stud-deta">
+                            <div class="stud-name">{{s.name}}</div>
 
                         </div>
                     </div>
                 </td>
 
                 <td>
-                    <div class="drive-info">
+                    <div class="d-info">
                         {% set ns = namespace(count=0) %}
 
                         {% for d in apple %}
-                        {% if d.student_id_id == s.id %}
+                        {% if d.student_id == s.id %}
 
                         {% set ns.count = ns.count + 1 %}
                         {% endif %}
@@ -128,7 +128,7 @@
 
                 </td>
                 <td>
-                    <div class="table-actions">
+                    <div class="t-a">
                         <a href="{{ url_for('Block_unblock_student',student_id=s.id) }}">
                             {% if s.is_blacklisted == True %}
                             <button style="background-color: #28a745; color: white;" class="btn-sm btn-view">
@@ -142,7 +142,12 @@
                         </a>
                         <a href="{{url_for('student_details', student_id = s.id)}}">
                             <button class="btn-sm btn-view">
-                                <i class="bi bi-eye"></i> View
+                                <i class="bi bi-eye"></i> View Details
+                            </button>
+                        </a>
+                        <a href="{{url_for('history_ad', student_id = s.id)}}">
+                            <button class="btn-sm btn-view">
+                                <i class="bi bi-eye"></i> View History
                             </button>
                         </a>
                     </div>
