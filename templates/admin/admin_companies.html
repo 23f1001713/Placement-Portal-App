@@ -26,8 +26,8 @@
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
     }
 
-    .sidebar-menu a:hover,
-    .sidebar-menu a.a_c {
+    .sidebar-list a:hover,
+    .sidebar-list a.a_c {
         background: rgba(255, 255, 255, 0.1);
         color: white;
         border-left: 4px solid #4facfe;
@@ -45,10 +45,14 @@
 
 </div>
 <div class="nav">
-    <div class="search">
-        <input type="text" placeholder="Search drives, companies..." name="search">
-        <i class="bi bi-search"></i>
-    </div>
+    <form method="POST" action="{{url_for('search_c')}}">
+        <div class="search">
+            <input type="text" placeholder="Search companies..." name="search">
+
+            <i class="bi bi-search"></i>
+        </div>
+        <input class="btn btn-outline-success" type="submit" value="Search">
+    </form>
 
 </div>
 

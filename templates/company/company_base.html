@@ -17,11 +17,11 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f7fa;
+            background: aliceblue;
             color: #333;
         }
 
-        .top-navbar {
+        .nav {
             background-color: #8100D1;
             color: white;
             padding: 15px 0;
@@ -31,7 +31,7 @@
             z-index: 1000;
         }
 
-        .navbar-container {
+        .navbar {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 30px;
@@ -40,7 +40,7 @@
             align-items: center;
         }
 
-        .navbar-brand {
+        .nav-logo {
             display: flex;
             align-items: center;
             gap: 12px;
@@ -50,11 +50,11 @@
             text-decoration: none;
         }
 
-        .navbar-brand i {
+        .nav-logo i {
             font-size: 1.8rem;
         }
 
-        .navbar-menu {
+        .nav-list {
             display: flex;
             align-items: center;
             gap: 30px;
@@ -62,7 +62,7 @@
             margin: 0;
         }
 
-        .navbar-menu a {
+        .nav-list a {
             color: white;
             text-decoration: none;
             font-weight: 500;
@@ -76,13 +76,13 @@
 
 
 
-        .user-section {
+        .user {
             display: flex;
             align-items: center;
             gap: 15px;
         }
 
-        .notification-bell {
+        .bell {
             position: relative;
             font-size: 1.4rem;
             cursor: pointer;
@@ -91,11 +91,11 @@
             transition: all 0.3s ease;
         }
 
-        .notification-bell:hover {
+        .bell:hover {
             background: rgba(255, 255, 255, 0.2);
         }
 
-        .notification-count {
+        .not-co {
             position: absolute;
             top: 0;
             right: 0;
@@ -107,7 +107,7 @@
             font-weight: bold;
         }
 
-        .user-avatar {
+        .avatar {
             width: 45px;
             height: 45px;
             border-radius: 50%;
@@ -122,7 +122,7 @@
             border: 3px solid rgba(255, 255, 255, 0.3);
         }
 
-        .main-container {
+        .main-co {
             max-width: 1400px;
             margin: 30px auto;
             padding: 0 30px;
@@ -144,7 +144,7 @@
         }
 
 
-        .welcome-content {
+        .wel-con {
             position: relative;
             z-index: 1;
             display: flex;
@@ -152,13 +152,13 @@
             align-items: center;
         }
 
-        .welcome-text h1 {
+        .wel-text h1 {
             font-size: 2.5rem;
             margin-bottom: 12px;
             font-weight: 800;
         }
 
-        .welcome-text p {
+        .wel-text p {
             font-size: 1.15rem;
             opacity: 0.95;
             margin: 0;
@@ -188,14 +188,14 @@
         }
 
 
-        .stats-grid {
+        .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 25px;
             margin-bottom: 40px;
         }
 
-        .stat-card {
+        .stat {
             background: white;
             padding: 30px;
             border-radius: 16px;
@@ -207,34 +207,23 @@
             gap: 20px;
         }
 
-        .stat-card:hover {
+        .stat:hover {
             transform: translateY(-8px);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
         }
 
 
 
-        .stat-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            flex-shrink: 0;
-        }
 
-        .stat-info h3 {
+
+        .stat-i h3 {
             font-size: 2.2rem;
             font-weight: 800;
             color: #2d3436;
             margin-bottom: 5px;
         }
 
-        .stat-info p {
+        .stat-i p {
             color: #636e72;
             font-size: 0.95rem;
             margin: 0;
@@ -244,7 +233,7 @@
         }
 
 
-        .section-card {
+        .sec-card {
             background: white;
             border-radius: 16px;
             padding: 30px;
@@ -252,7 +241,7 @@
             margin-bottom: 30px;
         }
 
-        .section-header {
+        .sec-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -261,7 +250,7 @@
             border-bottom: 2px solid #f0f0f0;
         }
 
-        .section-header h2 {
+        .sec-header h2 {
             font-size: 1.5rem;
             font-weight: 700;
             color: #2d3436;
@@ -271,7 +260,7 @@
             margin: 0;
         }
 
-        .section-header .icon {
+        .sec-header .icon {
             color: #667eea;
             font-size: 1.8rem;
         }
@@ -297,20 +286,20 @@
         }
 
 
-        .content-grid {
+        .content-g {
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 30px;
         }
 
 
-        .drives-list {
+        .drives {
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
 
-        .drive-card {
+        .drive {
             background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
             border-radius: 16px;
             padding: 25px;
@@ -320,7 +309,7 @@
             overflow: hidden;
         }
 
-        .drive-card::before {
+        .drive::before {
             content: '';
             position: absolute;
             top: 0;
@@ -330,20 +319,20 @@
             background-color: blue;
         }
 
-        .drive-card:hover {
+        .drive:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             border-color: blue;
         }
 
-        .drive-header {
+        .drive-h {
             display: flex;
             justify-content: space-between;
             align-items: start;
             margin-bottom: 15px;
         }
 
-        .drive-title {
+        .drive-t {
             font-size: 1.2rem;
             font-weight: 700;
             color: #2d3436;
@@ -356,7 +345,7 @@
             font-weight: 600;
         }
 
-        .drive-status {
+        .drive-s {
             padding: 6px 14px;
             border-radius: 20px;
             font-size: 0.75rem;
@@ -393,14 +382,14 @@
             }
         }
 
-        .drive-meta {
+        .drive-m {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
             margin: 20px 0;
         }
 
-        .meta-item {
+        .meta-i {
             display: flex;
             align-items: center;
             gap: 8px;
@@ -408,7 +397,7 @@
             color: #636e72;
         }
 
-        .meta-item i {
+        .meta-i i {
             color: #667eea;
             font-size: 1.1rem;
         }
@@ -458,13 +447,13 @@
         }
 
 
-        .applicants-list {
+        .app-list {
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
 
-        .applicant-card {
+        .app-card {
             background: #f8f9fa;
             border-radius: 12px;
             padding: 18px;
@@ -472,20 +461,20 @@
             border-left: 4px solid blue;
         }
 
-        .applicant-card:hover {
+        .app-card:hover {
             background: white;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             transform: translateX(5px);
         }
 
-        .applicant-header {
+        .app-h {
             display: flex;
             align-items: center;
             gap: 15px;
             margin-bottom: 10px;
         }
 
-        .applicant-avatar {
+        /* .a-avatar {
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -497,25 +486,25 @@
             font-weight: bold;
             font-size: 1.1rem;
             flex-shrink: 0;
-        }
+        } */
 
-        .applicant-info {
+        .app-i {
             flex: 1;
         }
 
-        .applicant-name {
+        .app-n {
             font-weight: 700;
             color: #2d3436;
             font-size: 1rem;
             margin-bottom: 3px;
         }
 
-        .applicant-details {
+        .app-d {
             font-size: 0.85rem;
             color: #636e72;
         }
 
-        .applicant-badge {
+        .app-b {
             padding: 5px 12px;
             border-radius: 15px;
             font-size: 0.75rem;
@@ -528,7 +517,7 @@
             color: #0984e3;
         }
 
-        .applicant-meta {
+        .app-m {
             display: flex;
             gap: 20px;
             margin-top: 10px;
@@ -536,13 +525,13 @@
             color: #636e72;
         }
 
-        .applicant-meta-item {
+        .app-m-i {
             display: flex;
             align-items: center;
             gap: 5px;
         }
 
-        .applicant-meta-item i {
+        .app-m-i i {
             color: #667eea;
         }
 
@@ -612,11 +601,11 @@
 
 
         @media (max-width: 992px) {
-            .content-grid {
+            .content-g {
                 grid-template-columns: 1fr;
             }
 
-            .welcome-content {
+            .wel-con {
                 flex-direction: column;
                 gap: 20px;
                 align-items: start;
@@ -633,7 +622,7 @@
         }
 
         @media (max-width: 768px) {
-            .navbar-menu {
+            .nav-list {
                 display: none;
                 position: absolute;
                 top: 100%;
@@ -646,11 +635,11 @@
                 box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             }
 
-            .navbar-menu.active {
+            .nav-list.active {
                 display: flex;
             }
 
-            .navbar-menu a {
+            .nav-list a {
                 width: 100%;
                 padding: 12px 30px;
                 border-radius: 0;
@@ -660,27 +649,27 @@
                 display: block;
             }
 
-            .main-container {
+            .main-co {
                 padding: 0 15px;
             }
 
-            .welcome-banner {
+            .banner {
                 padding: 30px 25px;
             }
 
-            .welcome-text h1 {
+            .wel-text h1 {
                 font-size: 1.8rem;
             }
 
-            .stats-grid {
+            .stats {
                 grid-template-columns: 1fr;
             }
 
-            .drive-meta {
+            .drive-m {
                 grid-template-columns: 1fr;
             }
 
-            .navbar-container {
+            .navbar {
                 padding: 0 15px;
             }
         }
@@ -689,31 +678,29 @@
 </head>
 
 <body>
-
-    <!-- Top Navigation Bar -->
-    <nav class="top-navbar">
-        <div class="navbar-container">
-            <a href="#" class="navbar-brand">
+    <nav class="nav">
+        <div class="navbar">
+            <a href="#" class="nav-logo">
                 <i class="bi bi-building"></i>
                 Placement Portal
             </a>
 
 
 
-            <ul class="navbar-menu" id="navbarMenu">
+            <ul class="nav-list" id="navbarMenu">
                 <li><a href="{{url_for('company')}}" class="dash"><i class="bi bi-house-door"></i> Dashboard</a></li>
-                <li><a href="{{url_for('company_drive')}}" class="drive"><i class="bi bi-briefcase"></i> My Drives</a>
+                <li><a href="{{url_for('company_drive')}}" class="drive1"><i class="bi bi-briefcase"></i> My Drives</a>
                 </li>
                 <li><a href="{{url_for('company_app')}}" class="app"><i class="bi bi-people"></i> Applicants</a></li>
                 <li><a href="{{url_for('logout')}}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
             </ul>
 
-            <div class="user-section">
-                <div class="notification-bell">
+            <div class="user">
+                <div class="bell">
                     <i class="bi bi-bell"></i>
-                    <span class="notification-count">12</span>
+                    <span class="not-co">12</span>
                 </div>
-                <div class="user-avatar">TS</div>
+                <div class="avatar">TS</div>
             </div>
         </div>
     </nav>

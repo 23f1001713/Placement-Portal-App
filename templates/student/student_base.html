@@ -21,8 +21,8 @@
             color: #333;
         }
 
-        /* Top Navigation Bar */
-        .top-navbar {
+
+        .nav {
             background-color: #8100D1;
             color: white;
             padding: 15px 0;
@@ -32,7 +32,7 @@
             z-index: 1000;
         }
 
-        .navbar-container {
+        .navbar {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 30px;
@@ -41,7 +41,7 @@
             align-items: center;
         }
 
-        .navbar-brand {
+        .nav-logo {
             display: flex;
             align-items: center;
             gap: 12px;
@@ -51,11 +51,11 @@
             text-decoration: none;
         }
 
-        .navbar-brand i {
+        .nav-logo i {
             font-size: 1.8rem;
         }
 
-        .navbar-menu {
+        .nav-list {
             display: flex;
             align-items: center;
             gap: 30px;
@@ -63,7 +63,7 @@
             margin: 0;
         }
 
-        .navbar-menu a {
+        .nav-list a {
             color: white;
             text-decoration: none;
             font-weight: 500;
@@ -75,41 +75,221 @@
             gap: 8px;
         }
 
-        .main-container {
+        .main-co {
             max-width: 1200px;
             margin: 30px auto;
             padding: 0 30px;
         }
 
 
-        .page-header {
-            background-color: #9b5cc2;
-            color: white;
+        .header {
+            background-color: white;
+            color: black;
             padding: 30px 40px;
             border-radius: 15px;
             margin-bottom: 30px;
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
         }
 
-        .page-header h1 {
+        .header h1 {
             font-size: 2rem;
             margin-bottom: 8px;
             font-weight: 700;
         }
 
-        .page-header p {
-            margin: 0;
-            opacity: 0.9;
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
         }
 
+        .stat {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-left: 5px solid #022ce7;
+            display: flex;
+            gap: 20px;
+        }
 
-        .profile-container {
+        .stat:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            border: 2px solid blue;
+        }
+
+        .stat-n {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #2d3436;
+            margin-bottom: 8px;
+        }
+
+        .stat-l {
+            font-size: 0.9rem;
+            color: black;
+            text-align: start;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .app-con {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .app-card {
+            background: white;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-left: 5px solid blue;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .app-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .app-t {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2d3436;
+            margin-bottom: 8px;
+        }
+
+        .app-c {
+            color: #667eea;
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-b {
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .status-applied {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+        }
+
+        .status-shortlisted {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            color: #2d3436;
+        }
+
+        .status-selected {
+            background: linear-gradient(135deg, #55efc4 0%, #00b894 100%);
+            color: white;
+        }
+
+        .status-rejected {
+            background: linear-gradient(135deg, #fab1a0 0%, #ff7675 100%);
+            color: white;
+        }
+
+        .drives {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 25px;
+        }
+
+        .drive {
+            background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 16px;
+            padding: 25px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .drive::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: blue;
+        }
+
+        .drive:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .drive-h {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+
+        .drive-t {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2d3436;
+            margin-bottom: 8px;
+        }
+
+        .c-name {
+            color: #667eea;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .drive-b {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .badge-new {
+            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+            color: white;
+        }
+
+        .pro-con {
             display: grid;
             grid-template-columns: 350px 1fr;
             gap: 30px;
         }
 
-        .profile-sidebar {
+        .pro-side {
             background: white;
             border-radius: 12px;
             padding: 30px;
@@ -118,14 +298,14 @@
             height: fit-content;
         }
 
-        .profile-picture-container {
+        .pro-pic-con {
             position: relative;
             width: 180px;
             height: 180px;
             margin: 0 auto 20px;
         }
 
-        .profile-picture {
+        .pro-pic {
             width: 180px;
             height: 180px;
             border-radius: 50%;
@@ -139,7 +319,7 @@
             border: 5px solid #f0f0f0;
         }
 
-        .profile-picture img {
+        .pro-pic img {
             width: 100%;
             height: 100%;
             border-radius: 50%;
@@ -169,26 +349,26 @@
             transform: scale(1.1);
         }
 
-        .profile-completion {
+        .pro-com {
             margin-top: 25px;
             padding-top: 25px;
             border-top: 1px solid #f0f0f0;
         }
 
-        .completion-text {
+        .com-text {
             font-size: 0.9rem;
             color: #636e72;
             margin-bottom: 10px;
         }
 
-        .completion-percentage {
+        .com-tage {
             font-size: 2rem;
             font-weight: 700;
             color: #667eea;
             margin-bottom: 10px;
         }
 
-        .progress-bar-custom {
+        .pro-bar {
             width: 100%;
             height: 8px;
             background: #e9ecef;
@@ -196,14 +376,14 @@
             overflow: hidden;
         }
 
-        .progress-fill {
+        .pro-fill {
             height: 100%;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             width: 85%;
             transition: width 0.5s ease;
         }
 
-        .completion-tips {
+        .com-tips {
             margin-top: 20px;
             text-align: left;
             background: #f8f9fa;
@@ -211,33 +391,33 @@
             border-radius: 8px;
         }
 
-        .completion-tips h4 {
+        .com-tips h4 {
             font-size: 0.9rem;
             font-weight: 600;
             color: #2d3436;
             margin-bottom: 10px;
         }
 
-        .completion-tips ul {
+        .com-tips ul {
             margin: 0;
             padding-left: 20px;
             font-size: 0.85rem;
             color: #636e72;
         }
 
-        .completion-tips li {
+        .com-tips li {
             margin-bottom: 5px;
         }
 
 
-        .profile-content {
+        .pro-cont {
             background: white;
             border-radius: 12px;
             padding: 30px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
-        .section-title {
+        .sec-title {
             font-size: 1.3rem;
             font-weight: 600;
             color: #2d3436;
@@ -249,7 +429,7 @@
             gap: 10px;
         }
 
-        .section-title i {
+        .sec-title i {
             color: #667eea;
         }
 
@@ -359,18 +539,10 @@
         }
 
 
-        /* .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        } */
 
-        /* Responsive Design */
+
         @media (max-width: 992px) {
-            .profile-container {
+            .pro-con {
                 grid-template-columns: 1fr;
             }
 
@@ -380,11 +552,11 @@
         }
 
         @media (max-width: 768px) {
-            .navbar-container {
+            .navbar {
                 padding: 0 15px;
             }
 
-            .navbar-menu {
+            .nav-list {
                 display: none;
                 position: absolute;
                 top: 100%;
@@ -397,29 +569,26 @@
                 box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             }
 
-            .navbar-menu.active {
+            .nav-list.active {
                 display: flex;
             }
 
-            .navbar-menu a {
+            .nav-list a {
                 width: 100%;
                 padding: 12px 30px;
                 border-radius: 0;
             }
 
-            .mobile-menu-toggle {
-                display: block;
-            }
 
-            .main-container {
+            .main-co {
                 padding: 0 15px;
             }
 
-            .page-header {
+            .header {
                 padding: 20px 25px;
             }
 
-            .page-header h1 {
+            .header h1 {
                 font-size: 1.5rem;
             }
 
@@ -449,17 +618,17 @@
 
 <body>
 
-    <!-- Top Navigation Bar -->
-    <nav class="top-navbar">
-        <div class="navbar-container">
-            <a href="#" class="navbar-brand">
+
+    <nav class="nav">
+        <div class="navbar">
+            <a href="#" class="nav-logo">
                 <i class="bi bi-mortarboard-fill"></i>
                 Placement Portal
             </a>
 
 
 
-            <ul class="navbar-menu" id="navbarMenu">
+            <ul class="nav-list" id="navbarMenu">
                 <li><a href="{{url_for('student')}}" class="s"><i class="bi bi-house-door"></i> Dashboard</a></li>
                 <li><a href="{{url_for('student_drive')}}" class="s_d"><i class="bi bi-briefcase"></i> Drives</a></li>
                 <li><a href="{{url_for('student_application')}}" class="s_a"><i class="bi bi-file-earmark-text"></i> My

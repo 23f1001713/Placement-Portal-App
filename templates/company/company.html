@@ -14,11 +14,11 @@
 
 {% block content %}
 
-<div class="main-container">
+<div class="main-co">
 
     <div class="banner">
-        <div class="welcome-content">
-            <div class="welcome-text">
+        <div class="wel-con">
+            <div class="wel-text">
                 <h1>Welcome back,{{c.company_name}}</h1>
 
             </div>
@@ -44,34 +44,34 @@
 
 
 
-    <div class="stats-grid">
-        <div class="stat-card ">
+    <div class="stats">
+        <div class="stat">
 
-            <div class="stat-info">
+            <div class="stat-i">
                 <h3>{{d_p}} </h3>
                 <p>Pending Approval</p>
             </div>
         </div>
 
-        <div class="stat-card ">
+        <div class="stat ">
 
-            <div class="stat-info">
+            <div class="stat-i">
                 <h3>{{a_d}}</h3>
                 <p>Active Drives</p>
             </div>
         </div>
 
-        <div class="stat-card ">
+        <div class="stat ">
 
-            <div class="stat-info">
+            <div class="stat-i">
                 <h3>{{t_a}}</h3>
                 <p>Total Applicants</p>
             </div>
         </div>
 
-        <div class="stat-card">
+        <div class="stat">
 
-            <div class="stat-info">
+            <div class="stat-i">
                 <h3>{{t_s}}</h3>
                 <p>Shortlisted</p>
             </div>
@@ -79,13 +79,13 @@
     </div>
 
 
-    <div class="content-grid">
+    <div class="content-g">
 
 
         <div>
 
-            <div class="section-card">
-                <div class="section-header">
+            <div class="sec-card">
+                <div class="sec-header">
                     <h2>
                         <i class="bi bi-briefcase-fill icon"></i>
                         Active Placement Drives
@@ -95,28 +95,28 @@
                     </a>
                 </div>
                 {% for drive in drives %}
-                <div class="drives-list">
+                <div class="drives">
 
 
-                    <div class="drive-card">
-                        <div class="drive-header">
+                    <div class="drive">
+                        <div class="drive-h">
                             <div>
                                 <div class="drive-id">{{drive.id}}</div>
-                                <div class="drive-title">{{drive.job_title}} </div>
+                                <div class="drive-t">{{drive.job_title}} </div>
                             </div>
                             {% if drive.status == 'APPROVED' %}
-                            <span class="drive-status status-active">Active</span>
+                            <span class="drive-s status-active">Active</span>
                             {% else %}
-                            <span class="drive-status status-pending">Pending Approval</span>
+                            <span class="drive-s status-pending">Pending Approval</span>
                             {% endif%}
                         </div>
 
-                        <div class="drive-meta">
-                            <div class="meta-item">
+                        <div class="drive-m">
+                            <div class="meta-i">
                                 <i class="bi bi-geo-alt-fill"></i>
                                 <span>Description : {{drive.description}} </span>
 
-                                <div class="meta-item">
+                                <div class="meta-i">
                                     <i class="bi bi-calendar-check"></i>
                                     <span>Deadline: {{drive.deadline}}</span>
                                 </div>
@@ -152,8 +152,8 @@
 
 
 
-            <div class="section-card">
-                <div class="section-header">
+            <div class="sec-card">
+                <div class="sec-header">
                     <h2>
                         <i class="bi bi-people-fill icon"></i>
                         Recent Applicants
@@ -163,23 +163,23 @@
                     </a>
                 </div>
 
-                <div class="applicants-list">
+                <div class="app-list">
                     {% for app in applications %}
-                    <div class="applicant-card">
-                        <div class="applicant-header">
+                    <div class="app-card">
+                        <div class="app-h">
 
-                            <div class="applicant-info">
-                                <div class="applicant-name">{{app.student.name}} </div>
-                                <div class="applicant-details">{{app.student.branch}} • {{app.student.cgpa}} </div>
+                            <div class="app-i">
+                                <div class="app-n">{{app.student.name}} </div>
+                                <div class="app-d">{{app.student.branch}} • {{app.student.cgpa}} </div>
                             </div>
 
                         </div>
-                        <div class="applicant-meta">
-                            <div class="applicant-meta-item">
+                        <div class="app-m">
+                            <div class="app-m-i">
                                 <i class="bi bi-briefcase"></i>
                                 <span><span>{{app.drive.job_title}} </span></span>
                             </div>
-                            <div class="applicant-meta-item">
+                            <div class="app-m-i">
                                 <i class="bi bi-star-fill"></i>
                                 <span>CGPA: {{app.student.cgpa}} </span>
                             </div>

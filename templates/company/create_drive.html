@@ -24,8 +24,62 @@
 </head>
 
 <body>
-
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class=flashes>
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
     <div class="container">
+        {% if d %}
+        <div class="form-container">
+            <h3 class="mb-4 text-center">Edit Placement Drive</h3>
+
+            <form action="{{url_for('update_drive' , drive_id = d.id)}}" method='POST'>
+
+
+                <div class="mb-3">
+                    <label for="jobTitle" class="form-label fw-bold">Job Title</label>
+                    <input type="text" class="form-control" id="jobTitle" name="job_title" maxlength="100"
+                        placeholder="{{d.job_title}}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label fw-bold">Job Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="3" maxlength="200"
+                        placeholder="{{d.description}}"></textarea>
+                    <div class="form-text text-end">Max 200 characters</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="eligibility" class="form-label fw-bold">Eligibility Criteria</label>
+                    <input type="text" class="form-control" id="eligibility" name="eligibility" maxlength="100"
+                        placeholder="{{d.eligibility}}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="deadline" class="form-label fw-bold">Application Deadline Current is : {{d.deadline}}
+                    </label>
+                    <input type="datetime-local" class="form-control" id="deadline" name="deadline">
+                </div>
+
+
+
+                <div class="d-flex justify-content-between mt-4">
+                    {% if user == 'ADMIN' %}
+                    <a href="{{url_for('admin_drives')}}" class="btn btn-outline-secondary">Cancel</a>
+                    {% else %}
+                    <a href="{{url_for('company_drive')}}" class="btn btn-outline-secondary">Cancel</a>
+                    {% endif %}
+                    <button type="submit" class="btn btn-primary px-4">Update Drive</button>
+                </div>
+
+            </form>
+        </div>
+        {% else %}
         <div class="form-container">
             <h3 class="mb-4 text-center">Create New Placement Drive</h3>
 
@@ -59,12 +113,17 @@
 
 
                 <div class="d-flex justify-content-between mt-4">
+                    {% if user == 'ADMIN' %}
+                    <a href="{{url_for('admin_drives')}}" class="btn btn-outline-secondary">Cancel</a>
+                    {% else %}
                     <a href="{{url_for('company_drive')}}" class="btn btn-outline-secondary">Cancel</a>
+                    {% endif %}
                     <button type="submit" class="btn btn-primary px-4">Create Drive</button>
                 </div>
 
             </form>
         </div>
+        {% endif %}
     </div>
 
 </body>

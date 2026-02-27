@@ -26,8 +26,8 @@
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
     }
 
-    .sidebar-menu a:hover,
-    .sidebar-menu a.a_p {
+    .sidebar-list a:hover,
+    .sidebar-list a.a_p {
         background: rgba(255, 255, 255, 0.1);
         color: white;
         border-left: 4px solid #4facfe;
@@ -41,13 +41,7 @@
     <h1><i class="bi bi-briefcase"></i> Placement Drives Management</h1>
 
 </div>
-<div class="nav">
-    <div class="search">
-        <input type="text" placeholder="Search drives, companies...">
-        <i class="bi bi-search"></i>
-    </div>
 
-</div>
 
 
 
@@ -126,6 +120,12 @@
                     <i class="bi bi-x-circle"></i> Pending
                 </button>
                 {% endif %}
+            </a>
+            <a href="{{url_for('edit_drive' , drive_id = d.id)}}">
+                <button class="btn-action btn-edit">
+                    <i class="bi bi-pencil"></i>
+                    Edit
+                </button>
             </a>
             <a href="{{url_for('close_drive' , drive_id = d.id)}}">
                 <button class="btn-action btn-delete">

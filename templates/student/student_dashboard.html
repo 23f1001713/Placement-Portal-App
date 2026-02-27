@@ -11,73 +11,6 @@
         text-decoration: none;
     }
 
-    .welcome {
-        background-color: white;
-        color: black;
-        padding: 50px;
-        border-radius: 20px;
-        margin-bottom: 30px;
-        box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
-        position: relative;
-        overflow: hidden;
-    }
-
-
-
-    .welcomecon {
-        position: relative;
-        z-index: 1;
-    }
-
-    .welcome h1 {
-        font-size: 2.5rem;
-        margin-bottom: 12px;
-        font-weight: 800;
-    }
-
-
-    .stats {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 25px;
-        margin-bottom: 40px;
-    }
-
-    .card {
-        background: white;
-        padding: 30px;
-        border-radius: 16px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        transition: all 0.3s ease;
-        border-left: 5px solid #022ce7;
-        display: flex;
-        gap: 20px;
-    }
-
-    .card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-    }
-
-
-
-    .info h3 {
-        font-size: 2.2rem;
-        font-weight: 800;
-        color: #2d3436;
-        margin-bottom: 5px;
-    }
-
-    .info p {
-        color: #636e72;
-        font-size: 0.95rem;
-        margin: 0;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        font-weight: 600;
-    }
-
-
     .section {
         background: white;
         border-radius: 16px;
@@ -86,7 +19,7 @@
         margin-bottom: 30px;
     }
 
-    .header {
+    .section-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -95,7 +28,7 @@
         border-bottom: 2px solid #f0f0f0;
     }
 
-    .header h2 {
+    .section-header h2 {
         font-size: 1.5rem;
         font-weight: 700;
         color: #2d3436;
@@ -105,7 +38,7 @@
         margin: 0;
     }
 
-    .header .icon {
+    .section-header .icon {
         color: #667eea;
         font-size: 1.8rem;
     }
@@ -130,76 +63,7 @@
         color: white;
     }
 
-    /* Drive Cards */
-    .drives {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-        gap: 25px;
-    }
 
-    .drive {
-        background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
-        border-radius: 16px;
-        padding: 25px;
-        border: 2px solid #e9ecef;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .drive::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 5px;
-        height: 100%;
-        background-color: blue;
-    }
-
-    .drive:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        border-color: #667eea;
-    }
-
-    .drive-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: start;
-        margin-bottom: 15px;
-    }
-
-    .drive-title {
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: #2d3436;
-        margin-bottom: 8px;
-    }
-
-    .company-name {
-        color: #667eea;
-        font-size: 0.95rem;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-
-    .drive-badge {
-        padding: 6px 14px;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .badge-new {
-        background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
-        color: white;
-    }
 
 
 
@@ -215,14 +79,14 @@
         }
     }
 
-    .drive-meta {
+    .drive-m {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
         margin: 20px 0;
     }
 
-    .meta-item {
+    .meta-i {
         display: flex;
         align-items: center;
         gap: 8px;
@@ -230,12 +94,12 @@
         color: #636e72;
     }
 
-    .meta-item i {
+    .meta-i i {
         color: #667eea;
         font-size: 1.1rem;
     }
 
-    .drive-footer {
+    .drive-f {
         display: flex;
         gap: 12px;
         margin-top: 20px;
@@ -284,76 +148,6 @@
     }
 
 
-    .applications-list {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .application-card {
-        background: #f8f9fa;
-        border-radius: 12px;
-        padding: 20px;
-        transition: all 0.3s ease;
-        border-left: 4px solid #667eea;
-    }
-
-    .application-card:hover {
-        background: white;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        transform: translateX(5px);
-    }
-
-    .app-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 12px;
-    }
-
-    .app-title {
-        font-weight: 700;
-        color: #2d3436;
-        font-size: 1.05rem;
-        margin-bottom: 5px;
-    }
-
-    .app-company {
-        color: #636e72;
-        font-size: 0.9rem;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-
-    .status-badge {
-        padding: 6px 16px;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .status-applied {
-        background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
-        color: white;
-    }
-
-    .status-shortlisted {
-        background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
-        color: #2d3436;
-    }
-
-    .status-selected {
-        background: linear-gradient(135deg, #55efc4 0%, #00b894 100%);
-        color: white;
-    }
-
-    .status-rejected {
-        background: linear-gradient(135deg, #fab1a0 0%, #ff7675 100%);
-        color: white;
-    }
 
     .app-date {
         font-size: 0.85rem;
@@ -361,56 +155,19 @@
         margin-top: 8px;
     }
 
-    /* Responsive */
+
     @media (max-width: 768px) {
-        .navbar-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            flex-direction: column;
-            gap: 0;
-            padding: 15px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
 
-        .navbar-menu.active {
-            display: flex;
-        }
 
-        .navbar-menu a {
-            width: 100%;
-            padding: 12px 30px;
-            border-radius: 0;
-        }
-
-        .mobile-menu-toggle {
-            display: block;
-        }
-
-        .main-container {
-            padding: 0 15px;
-        }
-
-        .welcome-banner {
-            padding: 30px 25px;
-        }
-
-        .welcome-banner h1 {
-            font-size: 1.8rem;
-        }
-
-        .drives-grid {
+        .drives {
             grid-template-columns: 1fr;
         }
 
-        .stats-grid {
+        .stats {
             grid-template-columns: 1fr;
         }
 
-        .navbar-container {
+        .navbar {
             padding: 0 15px;
         }
     }
@@ -434,10 +191,10 @@
 {% block content %}
 
 
-<div class="main-container">
+<div class="main-co">
 
 
-    <div class="welcome">
+    <div class="header">
         <div class="welcomecon">
             <h1>Welcome , {{s.name}} !</h1>
 
@@ -446,41 +203,33 @@
 
 
     <div class="stats">
-        <div class="card">
-
-            <div class="info">
-                <h3>{{t_d}}</h3>
-                <p>Active Drives</p>
-            </div>
+        <div class="stat">
+            <div class="stat-n">{{t_d}}</div>
+            <div class="stat-l">Active Drives</div>
         </div>
 
-        <div class="card">
-
-            <div class="info">
-                <h3>{{applied}}</h3>
-                <p>Applied</p>
-            </div>
+        <div class="stat ">
+            <div class="stat-n">{{applied}}</div>
+            <div class="stat-l">Applied</div>
         </div>
 
-        <div class="card">
-
-            <div class="info">
-                <h3>{{sh}}</h3>
-                <p>Shortlisted</p>
-            </div>
+        <div class="stat ">
+            <div class="stat-n">{{sh}}</div>
+            <div class="stat-l">Shortlisted</div>
         </div>
 
-        <div class="card">
-
-            <div class="info">
-                <h3>{{se}}</h3>
-                <p>Selected</p>
-            </div>
+        <div class="stat ">
+            <div class="stat-n">{{se}}</div>
+            <div class="stat-l">Selected</div>
+        </div>
+        <div class="stat ">
+            <div class="stat-n">{{re}}</div>
+            <div class="stat-l">Rejected</div>
         </div>
     </div>
 
     <div class="section">
-        <div class="header">
+        <div class="section-header">
             <h2>
                 <i class="bi bi-briefcase-fill icon"></i>
                 Latest Placement Drives
@@ -493,19 +242,19 @@
         <div class="drives">
             {% for d in drive %}
             <div class="drive">
-                <div class="drive-header">
+                <div class="drive-h">
                     <div>
-                        <div class="drive-title">{{d.job_title}}</div>
-                        <div class="company-name">
+                        <div class="drive-t">{{d.job_title}}</div>
+                        <div class="c-name">
                             <i class="bi bi-building"></i>
                             {{d.company.company_name}}
                         </div>
                     </div>
-                    <span class="drive-badge badge-new">New</span>
+                    <span class="drive-b badge-new">New</span>
                 </div>
 
-                <div class="drive-meta">
-                    <div class="meta-item">
+                <div class="drive-m">
+                    <div class="meta-i">
 
                         <span>Description : {{d.description}}</span>
                     </div>
@@ -519,7 +268,7 @@
                     </div>
                 </div>
 
-                <div class="drive-footer">
+                <div class="drive-f">
                     <a class="btn-apply" href="{{url_for('student_apply',drive_id=d.id)}}">
                         <button class="btn-apply">
                             <i class="bi bi-send-fill"></i>
@@ -537,7 +286,7 @@
 
 
     <div class="section">
-        <div class="header">
+        <div class="section-header">
             <h2>
                 <i class="bi bi-clock-history icon"></i>
                 My Recent Applications
@@ -547,19 +296,19 @@
             </a>
         </div>
 
-        <div class="applications-list">
+        <div class="app-con">
 
-            <div class="application-card">
-                <div class="app-header">
+            <div class="app-card">
+                <div class="app-card-header">
                     <div>
-                        <div class="app-title">Senior Software Engineer</div>
-                        <div class="app-company">
+                        <div class="app-t">Senior Software Engineer</div>
+                        <div class="app-c">
                             <i class="bi bi-building"></i>
                             Tech Solutions Inc.
                         </div>
                     </div>
 
-                    <span class="status-badge status-applied">Applied</span>
+                    <span class="status-b status-applied">Applied</span>
 
                 </div>
                 <div class="app-date">

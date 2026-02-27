@@ -53,9 +53,9 @@
 {% endblock %}
 
 {% block content %}
-<div class="main-container">
-    <div class="section-card">
-        <div class="section-header">
+<div class="main-co">
+    <div class="sec-card">
+        <div class="sec-header">
             <h2>
                 <i class="bi bi-people-fill icon"></i>
                 All Applicants
@@ -63,16 +63,16 @@
 
         </div>
         {% for app in applications %}
-        <div class="applicants-list">
+        <div class="app-list">
 
 
 
-            <div class="applicant-card">
-                <div class="applicant-header">
+            <div class="app-card">
+                <div class="app-h">
 
-                    <div class="applicant-info">
-                        <div class="applicant-name">{{app.student.name}} </div>
-                        <div class="applicant-details">{{app.student.branch}} • {{app.student.cgpa}} </div>
+                    <div class="app-i">
+                        <div class="app-n">{{app.student.name}} </div>
+                        <div class="app-d">{{app.student.branch}} • {{app.student.cgpa}} </div>
                     </div>
 
                     {% if app.status == 'PENDING' %}
@@ -97,13 +97,13 @@
                     </button>
                     {% endif %}
                 </div>
-                <div class="applicant-meta">
+                <div class="app-m">
 
-                    <div class="applicant-meta-item">
+                    <div class="app-m-i">
                         <i class="bi bi-briefcase"></i>
                         <span><span>{{app.drive.job_title}} </span></span>
                     </div>
-                    <div class="applicant-meta-item">
+                    <div class="app-m-i">
                         <i class="bi bi-star-fill"></i>
                         <span>CGPA: {{app.student.cgpa}} </span>
                     </div>

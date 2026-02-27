@@ -257,7 +257,6 @@ def student_details(student_id):
 
 
 
-
 @app.route('/admin/companies')
 @login_required
 def admin_companies():
@@ -266,6 +265,29 @@ def admin_companies():
     drive = Drive.query.all()
 
     return render_template('admin/admin_companies.html', com_det = com_det,drive = drive,t_c = len(com_det) , t_d = len(drive) ,t_b = len(total_blocked) )
+
+@app.route('/search/result/company' , methods = ['POST'])
+def search_c():
+    word = request.form.get("search")
+    id ='company'
+    r = Company.query.filter_by(company_name = word).first()
+    return render_template('admin/result.html',
+                           r = r,id = id)
+
+
+
+@app.route('/search/result/student' , methods = ['POST'])
+def search_s():
+    word = request.form.get("search")
+    id ='student'
+    r = Student.query.filter_by(name = word).first()
+    if r:
+        apple = Application.query.filter_by(id = r.id).all()
+    else:
+        apple = ''
+    return render_template('admin/result.html',
+                           r = r,id = id,apple = apple)
+
 
 
 
@@ -316,6 +338,9 @@ def admin_drives():
 def drive_detail(drive_id):
     d = Drive.query.filter_by(id = drive_id).first_or_404()
     return render_template('admin/drive_details.html',d = d )
+
+
+
 
 
 @app.route('/app_drive/<int:drive_id>')
@@ -400,9 +425,9 @@ def student():
     student = Student.query.filter_by(user_id = current_user.id).first_or_404()
     drive = Drive.query.filter_by(status = "APPROVED").limit(2).all()
     application = Application.query.filter_by(student_id = student.id).all()
-    short = Application.query.filter(Application.student_id == current_user.id , Application.status == 'SHORTLISTED').all()
-    sele = Application.query.filter(Application.student_id == current_user.id , Application.status == 'SELECTED').all()
-
+    short = Application.query.filter(Application.student_id == student.id , Application.status == 'SHORTLISTED').all()
+    sele = Application.query.filter(Application.student_id == student.id , Application.status == 'SELECTED').all()
+    t_r = Application.query.filter_by(student_id = student.id,status = 'REJECTED').all()
 
     return render_template('student/student_dashboard.html',
                            t_d = len(t_d) ,
@@ -411,7 +436,8 @@ def student():
                            apple = application,
                            sh = len(short),
                            se = len(sele),
-                           drive = drive)
+                           drive = drive,
+                           re = len(t_r))
 
 
 
@@ -600,7 +626,7 @@ def company_drive():
 @app.route("/company/create_drive")
 @login_required
 def company_create_drive():
-    return render_template('company/create_drive.html')
+    return render_template('company/create_drive.html',d = None,user = 'COMPANY')
 
 
 @app.route('/create_drive',methods = ['POST'])
@@ -630,17 +656,51 @@ def create_drive():
 
     db.session.add(new_drive)
     
-
-    
-
-    
     db.session.commit()
     flash('Drive Created sucessfully')
     return redirect(url_for('company_drive'))
 
 
+@app.route('/edit/drive/<int:drive_id>')
+@login_required
+def edit_drive(drive_id):
+    d = Drive.query.filter_by(id = drive_id).first_or_404()
+    user = User.query.filter_by(id = current_user.id).first()
+    return render_template('company/create_drive.html' , d = d, user = user.role)
 
 
+
+@app.route('/update_drive/<int:drive_id>' ,methods = ['POST'])
+@login_required
+def update_drive(drive_id):
+   
+    job_title= request.form.get('job_title')
+    job_description = request.form.get('description')
+    eligibility = request.form.get('eligibility')
+    deadline_s = request.form.get('deadline')
+    
+    try:
+        deadline_obj = datetime.strptime(deadline_s, '%Y-%m-%dT%H:%M')
+    except ValueError:
+        
+        deadline_obj = datetime.strptime(deadline_s, '%Y-%m-%dT%H:%M:%S')
+    
+    d = Drive.query.filter_by(id = drive_id).first()
+    if job_title:
+        d.job_title = job_title
+    if job_description:
+        d.description = job_description
+    if eligibility:
+        d.eligibility = eligibility
+    if deadline_s:
+        d.deadline = deadline_obj
+    
+
+    
+    db.session.commit()
+    flash('Drive Updated sucessfully')
+   
+    return redirect(url_for('company_create_drive'))
 
 
 
