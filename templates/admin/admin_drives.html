@@ -127,11 +127,16 @@
                     Edit
                 </button>
             </a>
-            <a href="{{url_for('close_drive' , drive_id = d.id)}}">
-                <button class="btn-action btn-delete">
-                    <i class="bi bi-trash"></i> Close
+            <a href="{{url_for('close_drive', drive_id=d.id)}}">
+                {% if d.status == 'CLOSED' %}
+                <button class="btn-action btn-approve">
+                    <i class="bi bi-check-circle"></i> Unclose
                 </button>
-            </a>
+                {% else %}
+                <button class="btn-action btn-reject">
+                    <i class="bi bi-x-circle"></i> Close
+                </button>
+                {% endif %}
         </div>
     </div>
     {% endfor %}

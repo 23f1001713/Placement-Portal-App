@@ -6,16 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dive details</title>
     <style>
+        * {
+            margin-top: 10px;
+        }
+
         body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
 
-        a {
-            text-decoration: none;
+        .app-tab {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .app-tab thead {
+            background: #f8f9fa;
+        }
+
+        .app-tab th {
+            padding: 15px 20px;
+            text-align: left;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .app-tab tbody tr {
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+
+        .app-tab tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .app-tab td {
+            padding: 18px 20px;
+            font-size: 0.9rem;
+            color: #2d3436;
         }
     </style>
 </head>
@@ -26,26 +57,56 @@
     <a href="{{url_for('admin_drives')}}">
         <button>Go Back</button>
     </a>
-    <h2>Job Title </h2>
-    <h4>{{d.job_title}}</h4>
-    <h2>Description </h2>
-    <h4>{{d.description}}</h4>
-    <h2> Eligibility</h2>
-    <h4>{{d.eligibility}}</h4>
-    <h2>Deadline </h2>
-    <h4>{{d.deadline}}</h4>
-    <h2>status </h2>
-    <h4>{{d.status}}</h4>
-    <h1>Company Details</h1>
+    <table class="app-tab">
 
-    <h2>Company Name </h2>
-    <h4>{{d.company.company_name}}</h4>
-    <h2>Hr Contact </h2>
-    <h4>{{d.company.hr_contact}}</h4>
-    <h2>Website </h2>
-    <h4>{{d.company.website}}</h4>
-    <h2>Status </h2>
-    <h4>{{d.company.approval_status}}</h4>
+        <thead>
+            <tr>
+                <th>Drive ID</th>
+                <th>Drive name</th>
+                <th>Drive Description</th>
+                <th>Drive eligibility</th>
+                <th>Drive Deadline</th>
+                <th>Drive status</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>{{d.id}}</td>
+                <td>{{d.job_title}}</td>
+                <td>{{d.description}}</td>
+                <td>{{d.eligibility}}</td>
+                <td>{{d.deadline}}</td>
+                <td>{{d.status}}</td>
+            </tr>
+
+        </tbody>
+    </table>
+    <h2>Company Details</h2>
+    <table class="app-tab">
+
+        <thead>
+            <tr>
+                <th>Company ID</th>
+                <th>Company name</th>
+                <th>Company Hr</th>
+                <th>Company Website</th>
+                <th>Company Approval Status</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>{{d.company.id}}</td>
+                <td>{{d.company.company_name}}</td>
+                <td>{{d.company.hr_contact}}</td>
+                <td>{{d.company.website}}</td>
+                <td>{{d.company.approval_status}}</td>
+            </tr>
+
+        </tbody>
+    </table>
 
 
 

@@ -28,7 +28,7 @@
             left: 0;
             height: 100vh;
             width: 260px;
-            background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
+            background-color: rgb(6, 6, 135);
             padding: 20px 0;
             z-index: 1000;
             box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
@@ -1260,6 +1260,18 @@
                 </ul>
             </div>
             <div class="col-md-9 col-lg-10 ms-auto">
+
+
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                <ul class=flashes>
+                    {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
                 <main class="p-4">
                     {% block content %}{% endblock %}
                 </main>

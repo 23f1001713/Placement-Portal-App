@@ -56,36 +56,67 @@
                 <h3 class="headings">Search results</h3>
                 {% if r %}
                 {% if id == "company" %}
-                <div id="table" class="border" style="max-height:200px;overflow-y: scroll;">
+                <div id="table" class="border">
                     <table class="app-tab">
 
                         <thead>
                             <tr>
-                                <th scope="col">Company ID</th>
-                                <th scope="col">Company name</th>
-
+                                <th>Company ID</th>
+                                <th>Company name</th>
+                                <th>Company Hr</th>
+                                <th>Company Website</th>
+                                <th>Company status</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <th scope="row">{{r.id}}</th>
+                                <td>{{r.id}}</td>
                                 <td>{{r.company_name}}</td>
-
+                                <td>{{r.hr_contact}}</td>
+                                <td>{{r.website}}</td>
+                                <td>{{r.approval_status}}</td>
                             </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 style="text-align: center;">Drive Details</h2>
+                    <table class="app-tab">
+
+                        <thead>
+                            <tr>
+                                <th>Drive ID</th>
+                                <th>Drive name</th>
+                                <th>Drive Description</th>
+                                <th>Drive eligibility</th>
+                                <th>Drive Deadline</th>
+                                <th>Drive status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for d in drive %}
+                            <tr>
+                                <td>{{d.id}}</td>
+                                <td>{{d.job_title}}</td>
+                                <td>{{d.description}}</td>
+                                <td>{{d.eligibility}}</td>
+                                <td>{{d.deadline}}</td>
+                                <td>{{d.status}}</td>
+                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
 
                 {% else %}
-                <div id="table" class="border" style="max-height:200px;overflow-y: scroll;">
+                <div id="table" class="border">
                     <table class="app-tab">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Branch</th>
-                                <th scope="col">Resume </th>
-                                <th scope="col">CGPA</th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Branch</th>
+                                <th>Resume </th>
+                                <th>CGPA</th>
 
                             </tr>
                         </thead>

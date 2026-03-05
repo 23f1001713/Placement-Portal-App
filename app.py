@@ -26,14 +26,10 @@ def load_user(user_id):
 
 
 
-
-
-
-
+############## Home Page ##############
 
 @app.route('/')
 def home():
-   
     return render_template('index.html' )
 
 
@@ -95,6 +91,7 @@ def login():
 
 
 ########################Register Code###################
+
 @app.route('/register')
 def register():
     return render_template('register.html')
@@ -138,7 +135,7 @@ def register_company():
 
 
 #-----------------------------------------------------
-#           STUDENT
+#           STUDENT Register
 
 
 @app.route('/student_register' , methods = ['POST'])
@@ -180,9 +177,7 @@ def student_register():
 
 
 
-########################################################
-
-
+##################### ADMIN Routes ###################################
 
 
 
@@ -204,9 +199,6 @@ def admin():
                            p_s = total_approved,
                            p_d = len(p_d)
                            )
-
-
-
 
 
 
@@ -245,15 +237,14 @@ def Block_unblock_student(student_id):
     return redirect(url_for('admin_student'))
 
 @app.route('/admin/student/<int:student_id>')
+@login_required
 def student_details(student_id):
    
     stud = Student.query.get_or_404(student_id)
+    apple = Application.query.filter_by(student_id = stud.id).all()
     
     
-    
-    return render_template('admin/student_details.html',stud = stud)
-
-
+    return render_template('admin/student_details.html',r = stud,apple=apple)
 
 
 
@@ -267,22 +258,28 @@ def admin_companies():
     return render_template('admin/admin_companies.html', com_det = com_det,drive = drive,t_c = len(com_det) , t_d = len(drive) ,t_b = len(total_blocked) )
 
 @app.route('/search/result/company' , methods = ['POST'])
+@login_required
 def search_c():
     word = request.form.get("search")
     id ='company'
     r = Company.query.filter_by(company_name = word).first()
+    if r:
+        drive = Drive.query.filter_by(company_id = r.id).all()
+    else:
+        drive =''
     return render_template('admin/result.html',
-                           r = r,id = id)
+                           r = r,id = id,drive = drive)
 
 
 
 @app.route('/search/result/student' , methods = ['POST'])
+@login_required
 def search_s():
     word = request.form.get("search")
     id ='student'
     r = Student.query.filter_by(name = word).first()
     if r:
-        apple = Application.query.filter_by(id = r.id).all()
+        apple = Application.query.filter_by(student_id = r.id).all()
     else:
         apple = ''
     return render_template('admin/result.html',
@@ -292,13 +289,14 @@ def search_s():
 
 
 @app.route('/admin/company/<int:company_id>')
+@login_required
 def company_details(company_id):
    
     company = Company.query.get_or_404(company_id) 
     
     company_drives = Drive.query.filter_by(company_id=company_id).all()
     
-    return render_template('admin/company_details.html', company=company, drives=company_drives)
+    return render_template('admin/company_details.html', r=company, drives=company_drives)
 
 
 
@@ -335,6 +333,7 @@ def admin_drives():
     return render_template('admin/admin_drives.html',t_d = len(d),t_p = t_p,t_c = t_c , t_a = t_a,drive = d)
 
 @app.route('/drive_details/<int:drive_id>')
+@login_required
 def drive_detail(drive_id):
     d = Drive.query.filter_by(id = drive_id).first_or_404()
     return render_template('admin/drive_details.html',d = d )
@@ -361,16 +360,21 @@ def app_drive(drive_id):
 @login_required
 def close_drive(drive_id):
     stat = Drive.query.get_or_404(drive_id)
-
-    stat.status = 'CLOSED'
+    if stat.status != 'CLOSED':
+        stat.status = 'CLOSED'
+    else:
+        stat.status = 'APPROVED'
 
     db.session.commit()
-    return redirect(url_for('admin_drives'))
+    user = User.query.filter_by(id = current_user.id).first()
+    if user.role == 'ADMIN':
+        return redirect(url_for('admin_drives'))
+    return redirect(url_for('company_drive'))
 
 
 
 @app.route('/admin/<int:student_id>/history')
-
+@login_required
 def history_ad(student_id):
 
     
@@ -382,13 +386,8 @@ def history_ad(student_id):
 
 
 
-
-
-
-
-
-
 @app.route('/admin/applications')
+@login_required
 def admin_applications():
     apple = Application.query.all()
     total_application = len(Application.query.all())
@@ -402,20 +401,8 @@ def admin_applications():
                            t_r = total_rejected,
                            apple = apple)
 
-@app.route('/student_details/<int:apple_id>')
-@login_required
 
-def student_detail(apple_id):
-
-    
-    student = Student.query.filter_by(id = apple_id).first()
-    apple = Application.query.filter_by(student_id = apple_id).all()
-    return render_template('admin/student_details.html' , stud = student , applications = apple)
-
-
-
-
-
+############################## STUDENT PROFILE ROUTES ############################################################
 
 
 @app.route("/student")
@@ -438,15 +425,6 @@ def student():
                            se = len(sele),
                            drive = drive,
                            re = len(t_r))
-
-
-
-
-
-
-
-
-
 
 
 @app.route("/student/profile")
@@ -516,7 +494,7 @@ def student_apply(drive_id):
 
 
 @app.route('/history')
-
+@login_required
 def history_st():
 
     student = Student.query.filter_by(user_id = current_user.id).first_or_404()
@@ -577,6 +555,7 @@ def company_app():
 
 
 @app.route('/shortlist/<int:apple_id>')
+@login_required
 def shortlist(apple_id):
     a = Application.query.filter_by(id = apple_id).first_or_404()
 
@@ -586,6 +565,7 @@ def shortlist(apple_id):
 
 
 @app.route('/reject/<int:apple_id>')
+@login_required
 def reject(apple_id):
     a = Application.query.filter_by(id = apple_id).first_or_404()
 
@@ -595,6 +575,7 @@ def reject(apple_id):
 
 
 @app.route('/select/<int:apple_id>')
+@login_required
 def select(apple_id):
     a = Application.query.filter_by(id = apple_id).first_or_404()
 
@@ -605,6 +586,7 @@ def select(apple_id):
 
 
 @app.route('/pending/<int:apple_id>')
+@login_required
 def pending(apple_id):
     a = Application.query.filter_by(id = apple_id).first_or_404()
 
@@ -699,8 +681,10 @@ def update_drive(drive_id):
     
     db.session.commit()
     flash('Drive Updated sucessfully')
-   
-    return redirect(url_for('company_create_drive'))
+    user = User.query.filter_by(id = current_user.id).first()
+    if user.role == 'ADMIN':
+        return redirect(url_for('admin_drives'))
+    return redirect(url_for('company_drive'))
 
 
 

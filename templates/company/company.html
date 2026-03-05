@@ -133,10 +133,17 @@
                                     </button>
                                 </a>
                                 <a href="{{url_for('close_drive', drive_id = drive.id)}}">
+                                    {% if drive.status != 'CLOSED' %}
                                     <button class="btn-action btn-edit">
                                         <i class="bi bi-pencil"></i>
                                         Close Drive
                                     </button>
+                                    {% else %}
+                                    <button class="btn-action btn-edit">
+                                        <i class="bi bi-pencil"></i>
+                                        Resume Drive
+                                    </button>
+                                    {% endif %}
                                 </a>
                             </div>
                         </div>
@@ -145,114 +152,122 @@
 
                     </div>
 
+
+                    {% endfor %}
                 </div>
-                {% endfor %}
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <div>
+        <div class="sec-card">
+            <div class="sec-header">
+                <h2>
+                    <i class="bi bi-people-fill icon"></i>
+                    Recent Applicants
+                </h2>
+                <a href="{{url_for('company_app')}}" class="view-all-btn">
+                    View All <i class="bi bi-arrow-right"></i>
+                </a>
             </div>
 
 
 
+            <div class="app-list">
+                {% for app in applications %}
+                <div class="app-card">
+                    <div class="app-h">
 
-            <div class="sec-card">
-                <div class="sec-header">
-                    <h2>
-                        <i class="bi bi-people-fill icon"></i>
-                        Recent Applicants
-                    </h2>
-                    <a href="{{url_for('company_app')}}" class="view-all-btn">
-                        View All <i class="bi bi-arrow-right"></i>
-                    </a>
-                </div>
-
-                <div class="app-list">
-                    {% for app in applications %}
-                    <div class="app-card">
-                        <div class="app-h">
-
-                            <div class="app-i">
-                                <div class="app-n">{{app.student.name}} </div>
-                                <div class="app-d">{{app.student.branch}} • {{app.student.cgpa}} </div>
-                            </div>
-
+                        <div class="app-i">
+                            <div class="app-n">{{app.student.name}} </div>
+                            <div class="app-d">{{app.student.branch}} • {{app.student.cgpa}} </div>
                         </div>
-                        <div class="app-m">
-                            <div class="app-m-i">
-                                <i class="bi bi-briefcase"></i>
-                                <span><span>{{app.drive.job_title}} </span></span>
-                            </div>
-                            <div class="app-m-i">
-                                <i class="bi bi-star-fill"></i>
-                                <span>CGPA: {{app.student.cgpa}} </span>
-                            </div>
 
-                        </div>
-                        {% endfor %}
                     </div>
+                    <div class="app-m">
+                        <div class="app-m-i">
+                            <i class="bi bi-briefcase"></i>
+                            <span><span>{{app.drive.job_title}} </span></span>
+                        </div>
+                        <div class="app-m-i">
+                            <i class="bi bi-star-fill"></i>
+                            <span>CGPA: {{app.student.cgpa}} </span>
+                        </div>
+
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
-
-
         </div>
 
-        <div>
+    </div>
+</div>
 
-            <div class="quick-actions-panel">
-                <div class="section-header" style="border: none; padding-bottom: 0; margin-bottom: 20px;">
-                    <h2 style="font-size: 1.2rem;">
-                        <i class="bi bi-lightning-fill icon"></i>
-                        Quick Actions
-                    </h2>
+<div>
+
+    <div class="quick-actions-panel">
+        <div class="section-header" style="border: none; padding-bottom: 0; margin-bottom: 20px;">
+            <h2 style="font-size: 1.2rem;">
+                <i class="bi bi-lightning-fill icon"></i>
+                Quick Actions
+            </h2>
+        </div>
+
+        <div class="quick-actions-grid">
+            <a href="{{url_for('company_create_drive',company_id = c.id)}}">
+                <div class="action-item">
+                    <div class="action-icon">
+                        <i class="bi bi-plus-circle"></i>
+                    </div>
+                    <div class="action-text">
+                        <div class="action-title">Create New Drive</div>
+                        <div class="action-desc">Post a new job opportunity</div>
+                    </div>
                 </div>
+            </a>
 
-                <div class="quick-actions-grid">
-                    <a href="{{url_for('company_create_drive',company_id = c.id)}}">
-                        <div class="action-item">
-                            <div class="action-icon">
-                                <i class="bi bi-plus-circle"></i>
-                            </div>
-                            <div class="action-text">
-                                <div class="action-title">Create New Drive</div>
-                                <div class="action-desc">Post a new job opportunity</div>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="{{url_for('company_app')}}">
-                        <div class="action-item">
-                            <div class="action-icon">
-                                <i class="bi bi-people"></i>
-                            </div>
-                            <div class="action-text">
-                                <div class="action-title">Review Applicants</div>
-                                <div class="action-desc">View and shortlist candidates</div>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="{{url_for('company_drive')}}">
-                        <div class="action-item">
-                            <div class="action-icon">
-                                <i class="bi bi-briefcase"></i>
-                            </div>
-                            <div class="action-text">
-                                <div class="action-title">Manage Drives</div>
-                                <div class="action-desc">Edit or close existing drives</div>
-                            </div>
-                        </div>
-                    </a>
-
-
-
-
+            <a href="{{url_for('company_app')}}">
+                <div class="action-item">
+                    <div class="action-icon">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <div class="action-text">
+                        <div class="action-title">Review Applicants</div>
+                        <div class="action-desc">View and shortlist candidates</div>
+                    </div>
                 </div>
-            </div>
+            </a>
 
-
+            <a href="{{url_for('company_drive')}}">
+                <div class="action-item">
+                    <div class="action-icon">
+                        <i class="bi bi-briefcase"></i>
+                    </div>
+                    <div class="action-text">
+                        <div class="action-title">Manage Drives</div>
+                        <div class="action-desc">Edit or close existing drives</div>
+                    </div>
+                </div>
+            </a>
 
 
 
 
         </div>
     </div>
+
+
+
+
+
+
+</div>
+</div>
 
 </div>
 

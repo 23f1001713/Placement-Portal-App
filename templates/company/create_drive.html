@@ -113,10 +113,10 @@
 
 
                 <div class="d-flex justify-content-between mt-4">
-                    {% if user == 'ADMIN' %}
-                    <a href="{{url_for('admin_drives')}}" class="btn btn-outline-secondary">Cancel</a>
-                    {% else %}
+                    {% if user == 'COMPANY' %}
                     <a href="{{url_for('company_drive')}}" class="btn btn-outline-secondary">Cancel</a>
+                    {% else %}
+                    <a href="{{url_for('admin_drives')}}" class="btn btn-outline-secondary">Cancel</a>
                     {% endif %}
                     <button type="submit" class="btn btn-primary px-4">Create Drive</button>
                 </div>
